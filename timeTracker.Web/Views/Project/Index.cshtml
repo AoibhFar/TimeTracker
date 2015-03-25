@@ -1,0 +1,16 @@
+﻿@model IEnumerable<timeTracker.Domain.Project>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2>Projects</h2>
+
+<ul>
+    @foreach (var project in Model)
+    {
+        
+        <li>@project.Company - @Html.ActionLink(project.Name, "details", "project", new { project.Id }, null)</li>
+    }
+</ul>

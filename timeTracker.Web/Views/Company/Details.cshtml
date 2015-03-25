@@ -1,0 +1,76 @@
+﻿@model timeTracker.Domain.Company
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Company Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+   
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contactperson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contactperson)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contactnumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contactnumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contactemail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contactemail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Projects)
+        </dt>
+
+        <dd>
+                @foreach (var project in Model.Projects)
+                {
+                    @*@project.Name*@
+         
+                    @Html.ActionLink(project.Name, "details", "project", new { project.Id }, null)
+                    <br/>
+                }
+
+          
+           
+        </dd>
+
+    </dl>
+</div>
+<p>
+   
+    @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) |
+    @Html.ActionLink("Back to List", "Index") |
+    @Html.ActionLink("Add New Project","Create","Project",new {CompanyId = @Model.Id,CompanyName = Model.Name},null)
+</p>
