@@ -12,6 +12,8 @@ namespace timeTracker.Domain
         IQueryable<Employee> Employees{ get; }
         IQueryable<Project> Projects{ get; }
         IQueryable<Company> Companies { get;}
+        IQueryable<TimeSheet> TimeSheets { get; }
+        IQueryable<TimeSheetEntry> TimeSheetEntries { get; }
         void Save();
     }
 }

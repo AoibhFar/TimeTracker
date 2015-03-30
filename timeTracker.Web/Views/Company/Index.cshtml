@@ -4,18 +4,20 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Companies</h2>
+<div class="jumbotron">
+    <h2>Companies</h2>
 
-<ul>
-    @foreach (var company in Model)
-    {
-        <li>@Html.ActionLink(company.Name, "details", "company", new {company.Id}, null)</li>
+    <ul>
+        @foreach (var company in Model)
+        {
+            <li>@Html.ActionLink(company.Name, "details", "company", new { company.Id }, null)</li>
 
-    }
-</ul>
-<p>
-    @Html.ActionLink("Add a New Company", "Create")
-</p>
+        }
+    </ul>
+    <p>
+        @Html.ActionLink("Add a New Company", "Create")
+    </p>
 
+</div>
 
 

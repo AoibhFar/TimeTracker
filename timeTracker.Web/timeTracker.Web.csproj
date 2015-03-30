@@ -110,6 +110,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Web.DataVisualization.Design" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -186,6 +188,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\TimeSheetController.cs" />
+    <Compile Include="Controllers\TimeSheetEntryController.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\SmDependencyResolver.cs" />
     <Compile Include="Global.asax.cs">
@@ -197,6 +201,8 @@
     <Compile Include="Models\CreateCompanyViewModel.cs" />
     <Compile Include="Models\CreateEmployeeViewModel.cs" />
     <Compile Include="Models\CreateProjectViewModel.cs" />
+    <Compile Include="Models\CreateTimeSheetEntryViewModel.cs" />
+    <Compile Include="Models\CreateTimeSheetViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -283,6 +289,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Views\TimeSheetEntry\" />
+    <Folder Include="Views\TimeSheet\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -295,6 +304,9 @@
       <Project>{36467ac2-5db0-48a6-b276-60321b5b760e}</Project>
       <Name>timeTracker.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

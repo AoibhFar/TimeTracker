@@ -16,7 +16,9 @@ namespace timeTracker.Web.Infrastructure
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Company> Companies { get; set; }
-
+        public DbSet<TimeSheet> TimeSheets { get; set; }
+        public DbSet<TimeSheetEntry> TimeSheetEntries { get; set; }
+    
         void ITimeTrackerDataSource.Save()
         {
             SaveChanges();
@@ -39,8 +41,20 @@ namespace timeTracker.Web.Infrastructure
             get { return Companies; }
         }
 
+        IQueryable<TimeSheet> ITimeTrackerDataSource.TimeSheets
+        {
+            get { return TimeSheets; }
+        }
+
+        IQueryable<TimeSheetEntry> ITimeTrackerDataSource.TimeSheetEntries
+        {
+            get { return TimeSheetEntries; }
+        }
+
         public System.Data.Entity.DbSet<timeTracker.Web.Models.CreateProjectViewModel> CreateProjectViewModels { get; set; }
         public System.Data.Entity.DbSet<timeTracker.Web.Models.CreateEmployeeViewModel> CreateEmployeeViewModels { get; set; }
         public System.Data.Entity.DbSet<timeTracker.Web.Models.CreateCompanyViewModel> CreateCompanyViewModels { get; set; }
+        public System.Data.Entity.DbSet<timeTracker.Web.Models.CreateTimeSheetViewModel> CreateTimeSheetViewModels { get; set; }
+        public System.Data.Entity.DbSet<timeTracker.Web.Models.CreateTimeSheetEntryViewModel> CreateTimeSheetEntryViewModels { get; set; }
     }
 }
