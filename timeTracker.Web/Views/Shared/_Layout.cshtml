@@ -23,11 +23,23 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Companies", "Index", "Company")</li>
-                        <li>@Html.ActionLink("Projects", "Index", "Project")</li>
-                        <li>@Html.ActionLink("Employees", "Index", "Employee")</li>
-                        @*<li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+
+                            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                            {
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Area <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                       
+                                        <li>@Html.ActionLink("Companies", "Index", "Company")</li>
+                                        <li>@Html.ActionLink("Projects", "Index", "Project")</li>
+                                        <li>@Html.ActionLink("Employees", "Index", "Employee")</li>
+                                        <li class="divider"></li>
+                                        <li class="dropdown-header">Roles Admin</li>
+                                        <li>@Html.ActionLink("Roles Admin", "Index", "RolesAdmin")</li>
+                                        <li>@Html.ActionLink("Users Admin", "Index", "UsersAdmin")</li>
+                                    </ul>
+                                </li>
+                            }
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </div>
@@ -37,16 +49,16 @@
     <br />
     <br />
 
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - TimeTracker - Employee Scheduling Simplified by Aoibheann Farrell</p>
-            </footer>
-        </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - TimeTracker - Employee Scheduling Simplified by Aoibheann Farrell</p>
+        </footer>
+    </div>
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

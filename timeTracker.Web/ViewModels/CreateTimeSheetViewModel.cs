@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace timeTracker.Web.Models
+namespace timeTracker.Web.ViewModels
 {
-    public class CreateTimeSheetEntryViewModel
+    public class CreateTimeSheetViewModel
     {
-        [Key]
+
+
         public int Id { get; set; }
-    
     }
 }

@@ -23,9 +23,13 @@ namespace timeTracker.Web
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            //bundles.Add(new StyleBundle("~/Content/css").Include(
+                    //  "~/Content/flatly.bootstrap.css",
+                     // "~/Content/site.css"));
+            
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/flatly.bootstrap.css",
-                      "~/Content/site.css"));
+                     "~/Content/yeti.bootstrap.min.css",
+                     "~/Content/site.css"));
         }
     }
 }

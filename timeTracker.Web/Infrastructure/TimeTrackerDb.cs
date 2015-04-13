@@ -1,18 +1,27 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using timeTracker.Domain;
+using timeTracker.Web.Models;
 
 namespace timeTracker.Web.Infrastructure
 {
-    public class TimeTrackerDb : DbContext, ITimeTrackerDataSource
+    //public class TimeTrackerDb : DbContext, ITimeTrackerDataSource
+    public class TimeTrackerDb : IdentityDbContext<ApplicationUser>, ITimeTrackerDataSource
     {
         public TimeTrackerDb() : base("DefaultConnection")
         {
             
         }
+
+        public static TimeTrackerDb Create()
+        {
+            return new TimeTrackerDb();
+        }
+
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Company> Companies { get; set; }
@@ -23,8 +32,6 @@ namespace timeTracker.Web.Infrastructure
         {
             SaveChanges();
         }
-
-
 
         IQueryable<Employee> ITimeTrackerDataSource.Employees
         {
@@ -51,10 +58,12 @@ namespace timeTracker.Web.Infrastructure
             get { return TimeSheetEntries; }
         }
 
-        public System.Data.Entity.DbSet<timeTracker.Web.Models.CreateProjectViewModel> CreateProjectViewModels { get; set; }
-        public System.Data.Entity.DbSet<timeTracker.Web.Models.CreateEmployeeViewModel> CreateEmployeeViewModels { get; set; }
-        public System.Data.Entity.DbSet<timeTracker.Web.Models.CreateCompanyViewModel> CreateCompanyViewModels { get; set; }
-        public System.Data.Entity.DbSet<timeTracker.Web.Models.CreateTimeSheetViewModel> CreateTimeSheetViewModels { get; set; }
-        public System.Data.Entity.DbSet<timeTracker.Web.Models.CreateTimeSheetEntryViewModel> CreateTimeSheetEntryViewModels { get; set; }
+        //public System.Data.Entity.DbSet<timeTracker.Web.ViewModels.CreateProjectViewModel> CreateProjectViewModels { get; set; }
+        //public System.Data.Entity.DbSet<timeTracker.Web.ViewModels.CreateEmployeeViewModel> CreateEmployeeViewModels { get; set; }
+        //public System.Data.Entity.DbSet<timeTracker.Web.ViewModels.CreateCompanyViewModel> CreateCompanyViewModels { get; set; }
+        //public System.Data.Entity.DbSet<timeTracker.Web.ViewModels.CreateTimeSheetViewModel> CreateTimeSheetViewModels { get; set; }
+        //public System.Data.Entity.DbSet<timeTracker.Web.ViewModels.CreateTimeSheetEntryViewModel> CreateTimeSheetEntryViewModels { get; set; }
+
+        
     }
 }

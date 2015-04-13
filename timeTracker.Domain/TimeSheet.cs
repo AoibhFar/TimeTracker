@@ -11,6 +11,7 @@ namespace timeTracker.Domain
         public virtual int Id { get; set;}
         public virtual int EmployeeId { get; set; }
         public virtual DateTime? WeekStarting { get; set; }
+        public virtual float WeeklyHours { get; set; }
         public virtual ICollection<TimeSheetEntry> TimeSheetEntries { get; set; } 
     }
 

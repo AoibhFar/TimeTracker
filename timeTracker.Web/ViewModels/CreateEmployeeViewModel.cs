@@ -5,17 +5,16 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace timeTracker.Web.Models
+namespace timeTracker.Web.ViewModels
 {
     public class CreateEmployeeViewModel
     {
 
         [HiddenInput(DisplayValue = false)]
-        [Key]
         public int Id { get; set; }
 
         [Required]
-        public  string Name { get; set; }
+        public string Name { get; set; }
 
         [Required]
         public string Department { get; set; }

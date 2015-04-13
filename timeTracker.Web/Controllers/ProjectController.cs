@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using timeTracker.Domain;
-using timeTracker.Web.Models;
+using timeTracker.Web.ViewModels;
 
 namespace timeTracker.Web.Controllers
 {

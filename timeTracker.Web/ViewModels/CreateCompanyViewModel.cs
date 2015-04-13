@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace timeTracker.Web.Models
+namespace timeTracker.Web.ViewModels
 {
     public class CreateCompanyViewModel
     {
