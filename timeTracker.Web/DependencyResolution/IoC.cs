@@ -2,6 +2,7 @@ using System.Runtime.InteropServices;
 using StructureMap;
 using timeTracker.Domain;
 using timeTracker.Web.Infrastructure;
+using timeTracker.Web.Models;
 
 namespace timeTracker.Web {
     public static class IoC {
@@ -14,6 +15,7 @@ namespace timeTracker.Web {
                                         scan.WithDefaultConventions();
                                     });
                            x.For<ITimeTrackerDataSource>().HttpContextScoped().Use<TimeTrackerDb>();
+                           // x.For<ITimeTrackerDataSource>().HttpContextScoped().Use<ApplicationDbContext>();
                         });
             return ObjectFactory.Container;
         }

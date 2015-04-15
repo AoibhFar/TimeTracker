@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using timeTracker.Domain;
+using timeTracker.Web.Infrastructure;
 using timeTracker.Web.ViewModels;
 
 
@@ -12,9 +13,12 @@ namespace timeTracker.Web.Controllers
     public class CompanyController : Controller
     {
 
-        private readonly ITimeTrackerDataSource _data;
+        //private readonly ITimeTrackerDataSource _data;
 
-         public CompanyController(ITimeTrackerDataSource data)
+        private TimeTrackerDb _data = new TimeTrackerDb();
+
+         //public CompanyController(ITimeTrackerDataSource data)
+        public CompanyController(TimeTrackerDb data)
         {
             _data = data;
         }
@@ -55,7 +59,9 @@ namespace timeTracker.Web.Controllers
                     Description = viewModel.Description
                 };
 
-                _data.Save();
+                _data.Companies.Add(company);
+                _data.SaveChanges();
+                //_data.Save();
 
                 return RedirectToAction("index", "company");
             }

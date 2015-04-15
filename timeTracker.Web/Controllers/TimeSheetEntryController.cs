@@ -3,11 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using timeTracker.Domain;
+using timeTracker.Web.Infrastructure;
+using timeTracker.Web.ViewModels;
 
 namespace timeTracker.Web.Controllers
 {
     public class TimeSheetEntryController : Controller
     {
+
+         //private readonly ITimeTrackerDataSource _data;
+
+        private TimeTrackerDb _data = new TimeTrackerDb();
+
+         //public TimeSheetEntryController(ITimeTrackerDataSource data)
+        public TimeSheetEntryController(TimeTrackerDb data)
+        {
+            _data = data;
+        }
+
         // GET: TimeSheetEntry
         public ActionResult Index()
         {
@@ -28,62 +42,67 @@ namespace timeTracker.Web.Controllers
 
         // POST: TimeSheetEntry/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(CreateTimeSheetEntryViewModel viewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                var entry = new TimeSheetEntry
+                {
 
-                return RedirectToAction("Index");
+                };
+
+                _data.TimeSheetEntries.Add(entry);
+                _data.SaveChanges();
+                //_data.Save();
+
+                return RedirectToAction("index", "timesheetentry");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(viewModel);
         }
 
-        // GET: TimeSheetEntry/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        //// GET: TimeSheetEntry/Edit/5
+        //public ActionResult Edit(int id)
+        //{
+        //    return View();
+        //}
 
-        // POST: TimeSheetEntry/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+        //// POST: TimeSheetEntry/Edit/5
+        //[HttpPost]
+        //public ActionResult Edit(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add update logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
-        // GET: TimeSheetEntry/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //// GET: TimeSheetEntry/Delete/5
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
 
-        // POST: TimeSheetEntry/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        //// POST: TimeSheetEntry/Delete/5
+        //[HttpPost]
+        //public ActionResult Delete(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }

@@ -19,7 +19,7 @@ namespace timeTracker.Web.Migrations
         protected override void Seed(timeTracker.Web.Infrastructure.TimeTrackerDb context)
         {
 
-            if(!context.Roles.Any(r => r.Name == "Admin"))
+            if (!context.Roles.Any(r => r.Name == "Admin"))
             {
                 var store = new RoleStore<IdentityRole>(context);
                 var roleManager = new RoleManager<IdentityRole>(store);
@@ -30,13 +30,11 @@ namespace timeTracker.Web.Migrations
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser{UserName ="admin@mail.com" };
-                
+                var user = new ApplicationUser { UserName = "admin@mail.com" };
+
                 userManager.Create(user, "ChangeItAsap0!");
                 userManager.AddToRole(user.Id, "Admin");
             }
-
-           
 
             context.Companies.AddOrUpdate(d => d.Name,
                 new Company() { Name = "HydroP", Contactperson = "Ann Reilly", Contactemail = "areilly@gmail.com", Contactnumber = "01 4578995", Description = "Renewable Energy Engineering" },
@@ -52,18 +50,6 @@ namespace timeTracker.Web.Migrations
                 new Employee() { Name = "Chris Fagan", Department = "Marketing", Role = "Marketing Intern", Manager = "David" }
 
             );
-
-
-
-            //context.Projects.AddOrUpdate(d => d.Name,
-            //    new Project() { Name = "SharePoint Site", Company = "HydroP", Description = "New SharePoint Site for Sales Department" },
-            //    new Project() { Name = "CRM Application", Company = "Hydro", Description = "CRM Application for Whole Company" },
-            //    new Project() { Name = "Intranet Site", Company = "DCA Ltd", Description = "New Intranet Site for Whole Company" },
-            //    new Project() { Name = "WebSite", Company = "Paws a While", Description = "New External Website" },
-            //    new Project() { Name = "CRM", Company = "Jupitor Engineering", Description = "CRM Application for Whole Company" }
-
-            //   );
-
 
         }
     }

@@ -9,8 +9,8 @@ namespace timeTracker.Domain
 {
     public interface ITimeTrackerDataSource
     {
-        IQueryable<Employee> Employees{ get; }
-        IQueryable<Project> Projects{ get; }
+        IQueryable<Employee> Employees { get; }
+        IQueryable<Project> Projects { get; }
         IQueryable<Company> Companies { get;}
         IQueryable<TimeSheet> TimeSheets { get; }
         IQueryable<TimeSheetEntry> TimeSheetEntries { get; }

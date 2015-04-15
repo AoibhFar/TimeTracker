@@ -4,15 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using timeTracker.Domain;
+using timeTracker.Web.Infrastructure;
 using timeTracker.Web.ViewModels;
 
 namespace timeTracker.Web.Controllers
 {
     public class EmployeeController : Controller
     {
-       private readonly ITimeTrackerDataSource _data;
+       //private readonly ITimeTrackerDataSource _data;
+        private TimeTrackerDb _data = new TimeTrackerDb();
 
-         public EmployeeController(ITimeTrackerDataSource data)
+         //public EmployeeController(ITimeTrackerDataSource data)
+        public EmployeeController(TimeTrackerDb data)
         {
             _data = data;
         }
@@ -20,8 +23,8 @@ namespace timeTracker.Web.Controllers
         // GET: Company
          public ActionResult Index()
          {
-             var allEmployeess = _data.Employees;
-             return View(allEmployeess);
+             var allEmployees = _data.Employees;
+             return View(allEmployees);
          }
 
         // GET: Employee/Details/5
@@ -31,10 +34,13 @@ namespace timeTracker.Web.Controllers
             return View(model);
         }
 
-        [Authorize(Roles="canEdit")]
+        //[Authorize(Roles="Admin")]
         // GET: Employee/Create
+
+        [HttpGet]
         public ActionResult Create()
         {
+           
             return View();
         }
 
@@ -44,16 +50,20 @@ namespace timeTracker.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var employee = new Employee()
+                var employee = new Employee
                 {
                     Name = viewModel.Name,
                     Department = viewModel.Department,
                     Role = viewModel.Role,
-                    Manager = viewModel.Manager
+                    Manager = viewModel.Manager,
+                    Rate = viewModel.Rate
                     
                 };
 
-                _data.Save();
+                _data.Employees.Add(employee);
+                _data.SaveChanges();
+
+                //_data.Save();
 
                 return RedirectToAction("index", "employee");
             }

@@ -13,6 +13,7 @@ namespace timeTracker.Domain
         public virtual string Department { get; set; }
         public virtual string Role { get; set; }
         public virtual string Manager { get; set; }
+        public virtual int Rate { get; set; }
 
     }
 }
