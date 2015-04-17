@@ -23,6 +23,7 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("TimeSheets", "Index", "TimeSheet")</li>
 
                             @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                             {
@@ -32,7 +33,7 @@
                                        
                                         <li>@Html.ActionLink("Companies", "Index", "Company")</li>
                                         <li>@Html.ActionLink("Projects", "Index", "Project")</li>
-                                        <li>@Html.ActionLink("Employees", "Index", "Employee")</li>
+                                        <li>@Html.ActionLink("Add Employee", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
                                         <li class="divider"></li>
                                         <li class="dropdown-header">Roles Admin</li>
                                         <li>@Html.ActionLink("Roles Admin", "Index", "RolesAdmin")</li>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using timeTracker.Web.Areas.Admin.Models;
 using timeTracker.Web.Infrastructure;
 using timeTracker.Web.Models;
 
@@ -42,6 +43,8 @@ namespace timeTracker.Web.Areas.Admin.Controllers
             return View();
         }
 
+
+
         // POST: Admin/ApplicationUsers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -58,6 +61,8 @@ namespace timeTracker.Web.Areas.Admin.Controllers
 
             return View(applicationUser);
         }
+
+
 
         // GET: Admin/ApplicationUsers/Edit/5
         public ActionResult Edit(string id)

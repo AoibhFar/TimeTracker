@@ -1,20 +1,22 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using timeTracker.Domain;
 using timeTracker.Web.Infrastructure;
+using timeTracker.Web.Models;
 using timeTracker.Web.ViewModels;
 
 namespace timeTracker.Web.Controllers
 {
     public class EmployeeController : Controller
     {
-       //private readonly ITimeTrackerDataSource _data;
         private TimeTrackerDb _data = new TimeTrackerDb();
 
-         //public EmployeeController(ITimeTrackerDataSource data)
         public EmployeeController(TimeTrackerDb data)
         {
             _data = data;
@@ -46,6 +48,7 @@ namespace timeTracker.Web.Controllers
 
         // POST: Employee/Create
         [HttpPost]
+      
         public ActionResult Create(CreateEmployeeViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -56,14 +59,14 @@ namespace timeTracker.Web.Controllers
                     Department = viewModel.Department,
                     Role = viewModel.Role,
                     Manager = viewModel.Manager,
-                    Rate = viewModel.Rate
+                    Rate = viewModel.Rate,
+                    Email = viewModel.Email,
+                    Password = viewModel.Password
                     
                 };
 
                 _data.Employees.Add(employee);
                 _data.SaveChanges();
-
-                //_data.Save();
 
                 return RedirectToAction("index", "employee");
             }

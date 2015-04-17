@@ -5,12 +5,20 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using timeTracker.Domain;
 using System.Linq;
+using System;
 
 namespace timeTracker.Web.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public virtual string Name { get; set; }
+        public DateTime BirthDate { get; set; }
+        public virtual string Department { get; set; }
+        public virtual string Role { get; set; }
+        public virtual string Manager { get; set; }
+        public virtual float  Hourlyrate { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -33,40 +41,5 @@ namespace timeTracker.Web.Models
         }
 
 
-        //public DbSet<Employee> Employees { get; set; }
-        //public DbSet<Project> Projects { get; set; }
-        //public DbSet<Company> Companies { get; set; }
-        //public DbSet<TimeSheet> TimeSheets { get; set; }
-        //public DbSet<TimeSheetEntry> TimeSheetEntries { get; set; }
-    
-        //void ITimeTrackerDataSource.Save()
-        //{
-        //    SaveChanges();
-        //}
-
-        //IQueryable<Employee> ITimeTrackerDataSource.Employees
-        //{
-        //    get { return Employees; }
-        //}
-
-        //IQueryable<Project> ITimeTrackerDataSource.Projects
-        //{
-        //    get {return Projects; }
-        //}
-
-        //IQueryable<Company> ITimeTrackerDataSource.Companies
-        //{
-        //    get { return Companies; }
-        //}
-
-        //IQueryable<TimeSheet> ITimeTrackerDataSource.TimeSheets
-        //{
-        //    get { return TimeSheets; }
-        //}
-
-        //IQueryable<TimeSheetEntry> ITimeTrackerDataSource.TimeSheetEntries
-        //{
-        //    get { return TimeSheetEntries; }
-        //}
     }
 }

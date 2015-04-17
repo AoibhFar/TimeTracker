@@ -200,8 +200,11 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
+    <Compile Include="Areas\Admin\Models\CreateApplicationUserViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BarChartController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -217,6 +220,7 @@
     <Compile Include="Infrastructure\TimeTrackerDb.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BarChartModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -314,12 +318,21 @@
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Employee\Details.cshtml" />
     <Content Include="Views\Employee\Create.cshtml" />
+    <Content Include="Views\TimeSheet\Create.cshtml" />
+    <Content Include="Views\TimeSheet\Delete.cshtml" />
+    <Content Include="Views\TimeSheet\Details.cshtml" />
+    <Content Include="Views\TimeSheet\Edit.cshtml" />
+    <Content Include="Views\TimeSheet\Index.cshtml" />
+    <Content Include="Views\TimeSheetEntry\Create.cshtml" />
+    <Content Include="Views\TimeSheetEntry\Delete.cshtml" />
+    <Content Include="Views\TimeSheetEntry\Details.cshtml" />
+    <Content Include="Views\TimeSheetEntry\Edit.cshtml" />
+    <Content Include="Views\TimeSheetEntry\Index.cshtml" />
+    <Content Include="Views\BarChart\Index.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Views\TimeSheetEntry\" />
-    <Folder Include="Views\TimeSheet\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace timeTracker.Web.Models
@@ -64,6 +65,13 @@ namespace timeTracker.Web.Models
 
     public class RegisterViewModel
     {
+        public string Name { get; set;  }
+        public DateTime BirthDate { get; set; }
+        public string Department { get; set;  }
+        public string Role { get; set;  }
+        public string Manager { get; set; }
+        public float Hourlyrate { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

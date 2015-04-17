@@ -1,0 +1,43 @@
+﻿@model timeTracker.Web.Models.BarChartModel
+
+@{
+    ViewBag.Title = "Bar Chart ";
+}
+
+<!--Load Google Chart Ajax API-->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+
+    google.load("visualization", "1", { packages: ["columnchart"] });
+    google.setOnLoadCallback(drawChart);
+
+
+    function drawChart() {
+
+        $.post('/BarChart/GetBarJsonData', {}, function (data) {
+
+            var tdata = new google.visualization.DataTable();
+            tdata.addColumn('string', '@Model.RoleTitle');
+            tdata.addColumn('number', '@Model.RateTitle');
+
+            for (i = 0; i < data.length; i++) {
+
+                tdata.addRow([data[i].Role, data[i].Rate]);
+
+            }
+
+            var options = { width: 700, height: 500,is3D: true,title: 'Employee Roles and Rates' };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('chartdiv'));
+            chart.draw(tdata, options);
+
+            });
+
+        }
+
+    </script>
+<div id="chartdiv">
+</div>
+
+
+  

@@ -26,6 +26,14 @@ namespace timeTracker.Web.Migrations
                 var role = new IdentityRole { Name = "Admin" };
                 roleManager.Create(role);
             }
+
+            if (!context.Roles.Any(r => r.Name == "User"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var roleManager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "User" };
+                roleManager.Create(role);
+            }
             if (!context.Users.Any(u => u.UserName == "admin@mail.com"))
             {
                 var store = new UserStore<ApplicationUser>(context);

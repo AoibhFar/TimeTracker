@@ -24,5 +24,9 @@ namespace timeTracker.Web.ViewModels
         public string Manager { get; set; }
 
         public int Rate { get; set; }
+
+        public string Email { get; set; }
+
+        public string Password { get; set; }
     }
 }

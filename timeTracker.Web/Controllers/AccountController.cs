@@ -151,7 +151,19 @@ namespace timeTracker.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser 
+                { 
+                    Name = model.Name,
+                    BirthDate = model.BirthDate,
+                    Manager = model.Manager,
+                    Department = model.Department,
+                    Role = model.Role,
+                    Hourlyrate = model.Hourlyrate,
+                    UserName = model.Email, 
+                    Email = model.Email,
+
+                };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

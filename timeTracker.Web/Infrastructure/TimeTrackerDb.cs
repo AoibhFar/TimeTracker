@@ -58,6 +58,8 @@ namespace timeTracker.Web.Infrastructure
             get { return TimeSheetEntries; }
         }
 
+        public System.Data.Entity.DbSet<timeTracker.Web.Models.BarChartModel> BarChartModels { get; set; }
+
         //public System.Data.Entity.DbSet<timeTracker.Web.ViewModels.CreateEmployeeViewModel> CreateEmployeeViewModels { get; set; }
         //public System.Data.Entity.DbSet<timeTracker.Web.ViewModels.CreateProjectViewModel> CreateProjectViewModels { get; set; }
         //public System.Data.Entity.DbSet<timeTracker.Web.ViewModels.CreateEmployeeViewModel> CreateEmployeeViewModels { get; set; }
