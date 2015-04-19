@@ -8,18 +8,17 @@ using System.Web;
 using System.Web.Mvc;
 using timeTracker.Domain;
 using timeTracker.Web.Infrastructure;
+using timeTracker.Web.ViewModels;
 
 namespace timeTracker.Web.Controllers
 {
     public class TimeSheetEntryController : Controller
     {
 
-        //private readonly ITimeTrackerDataSource _data;
-
-        private TimeTrackerDb _data = new TimeTrackerDb();
-
-        //public TimeSheetController(ITimeTrackerDataSource data)
-        public TimeSheetEntryController(TimeTrackerDb data)
+        private readonly ITimeTrackerDataSource _data;
+        
+         public TimeSheetEntryController(ITimeTrackerDataSource data)
+       
         {
             // GET: TimeSheet
             _data = data;
@@ -28,7 +27,7 @@ namespace timeTracker.Web.Controllers
         // GET: TimeSheetEntry
         public ActionResult Index()
         {
-            return View(_data.TimeSheetEntries.ToList());
+            return View();
         }
 
         // GET: TimeSheetEntry/Details/5
@@ -38,12 +37,12 @@ namespace timeTracker.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TimeSheetEntry timeSheetEntry = _data.TimeSheetEntries.Find(id);
-            if (timeSheetEntry == null)
+            var timesheetentry = _data.TimeSheets.Single(t => t.Id == id);
+            if (timesheetentry == null)
             {
                 return HttpNotFound();
             }
-            return View(timeSheetEntry);
+            return View(timesheetentry);
         }
 
         // GET: TimeSheetEntry/Create
@@ -52,21 +51,23 @@ namespace timeTracker.Web.Controllers
             return View();
         }
 
-        // POST: TimeSheetEntry/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,EmployeeId,CompanyId,ProjectId,Notes,Billable,Day,Workdate")] TimeSheetEntry timeSheetEntry)
+        // POST: TimeSheet/Create
+        public ActionResult Create(CreateTimeSheetEntryViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                _data.TimeSheetEntries.Add(timeSheetEntry);
-                _data.SaveChanges();
-                return RedirectToAction("Index");
+                var timesheetentry = new TimeSheetEntry
+                {
+
+                };
+
+                _data.addTimeSheetEntry(timesheetentry);
+                _data.Save();
+
+                return RedirectToAction("index", "timesheetentry");
             }
 
-            return View(timeSheetEntry);
+            return View(viewModel);
         }
 
         // GET: TimeSheetEntry/Edit/5
@@ -76,63 +77,64 @@ namespace timeTracker.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TimeSheetEntry timeSheetEntry = _data.TimeSheetEntries.Find(id);
-            if (timeSheetEntry == null)
+
+            TimeSheetEntry timesheetentry = _data.TimeSheetEntries.Where(t => t.Id == id).Single();
+            if (timesheetentry == null)
             {
                 return HttpNotFound();
             }
-            return View(timeSheetEntry);
+            return View(timesheetentry);
         }
 
-        // POST: TimeSheetEntry/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,EmployeeId,CompanyId,ProjectId,Notes,Billable,Day,Workdate")] TimeSheetEntry timeSheetEntry)
-        {
-            if (ModelState.IsValid)
-            {
-                _data.Entry(timeSheetEntry).State = EntityState.Modified;
-                _data.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(timeSheetEntry);
-        }
+        //// POST: TimeSheetEntry/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "Id,EmployeeId,CompanyId,ProjectId,Notes,Billable,Day,Workdate")] TimeSheetEntry timeSheetEntry)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _data.Entry(timeSheetEntry).State = EntityState.Modified;
+        //        _data.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(timeSheetEntry);
+        //}
 
-        // GET: TimeSheetEntry/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TimeSheetEntry timeSheetEntry = _data.TimeSheetEntries.Find(id);
-            if (timeSheetEntry == null)
-            {
-                return HttpNotFound();
-            }
-            return View(timeSheetEntry);
-        }
+        //// GET: TimeSheetEntry/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    TimeSheetEntry timeSheetEntry = _data.TimeSheetEntries.Find(id);
+        //    if (timeSheetEntry == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(timeSheetEntry);
+        //}
 
-        // POST: TimeSheetEntry/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            TimeSheetEntry timeSheetEntry = _data.TimeSheetEntries.Find(id);
-            _data.TimeSheetEntries.Remove(timeSheetEntry);
-            _data.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: TimeSheetEntry/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    TimeSheetEntry timeSheetEntry = _data.TimeSheetEntries.Find(id);
+        //    _data.TimeSheetEntries.Remove(timeSheetEntry);
+        //    _data.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _data.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        _data.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

@@ -14,12 +14,10 @@ namespace timeTracker.Web.Controllers
 {
     public class TimeSheetController : Controller
     {
-        //private readonly ITimeTrackerDataSource _data;
+        private readonly ITimeTrackerDataSource _data;
 
-        private TimeTrackerDb _data = new TimeTrackerDb();
-
-         //public TimeSheetController(ITimeTrackerDataSource data)
-        public TimeSheetController(TimeTrackerDb data)
+        public TimeSheetController(ITimeTrackerDataSource data)
+       
         {
             // GET: TimeSheet
             _data = data;
@@ -36,12 +34,13 @@ namespace timeTracker.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TimeSheet timeSheet = _data.TimeSheets.Find(id);
-            if (timeSheet == null)
+
+            var timesheet = _data.TimeSheets.Single(t => t.Id == id);
+            if (timesheet == null)
             {
                 return HttpNotFound();
             }
-            return View(timeSheet);
+            return View(timesheet);
         }
 
         // GET: TimeSheet/Create
@@ -60,9 +59,8 @@ namespace timeTracker.Web.Controllers
 
                 };
 
-                _data.TimeSheets.Add(timesheet);
-                _data.SaveChanges();
-                //_data.Save();
+                _data.addTimeSheet(timesheet);
+                _data.Save();
 
                 return RedirectToAction("index", "timesheet");
             }
@@ -70,22 +68,6 @@ namespace timeTracker.Web.Controllers
             return View(viewModel);
         }
 
-        //// POST: TimeSheet/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "Id,EmployeeId,WeekStarting,WeeklyHours")] TimeSheet timeSheet)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _data.TimeSheets.Add(timeSheet);
-        //        _data.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(timeSheet);
-        //}
 
         // GET: TimeSheet/Edit/5
         public ActionResult Edit(int? id)
@@ -94,12 +76,13 @@ namespace timeTracker.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TimeSheet timeSheet = _data.TimeSheets.Find(id);
-            if (timeSheet == null)
+            TimeSheet timesheet = _data.TimeSheets.Where(t => t.Id == id).Single();
+
+            if (timesheet == null)
             {
                 return HttpNotFound();
             }
-            return View(timeSheet);
+            return View(timesheet);
         }
 
         // POST: TimeSheet/Edit/5

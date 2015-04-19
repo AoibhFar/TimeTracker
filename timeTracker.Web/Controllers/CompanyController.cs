@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using timeTracker.Domain;
@@ -13,12 +14,10 @@ namespace timeTracker.Web.Controllers
     public class CompanyController : Controller
     {
 
-        //private readonly ITimeTrackerDataSource _data;
+        private readonly ITimeTrackerDataSource _data;
 
-        private TimeTrackerDb _data = new TimeTrackerDb();
-
-         //public CompanyController(ITimeTrackerDataSource data)
-        public CompanyController(TimeTrackerDb data)
+        public CompanyController(ITimeTrackerDataSource data)
+      
         {
             _data = data;
         }
@@ -33,7 +32,17 @@ namespace timeTracker.Web.Controllers
         // GET: Company/Details/5
         public ActionResult Details(int id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             var model = _data.Companies.Single(d => d.Id == id);
+
+            if (model == null)
+            {
+                return HttpNotFound();
+            } 
+
             return View(model);
         }
 
@@ -59,9 +68,8 @@ namespace timeTracker.Web.Controllers
                     Description = viewModel.Description
                 };
 
-                _data.Companies.Add(company);
-                _data.SaveChanges();
-                //_data.Save();
+                _data.addCompany(company);
+                _data.Save();
 
                 return RedirectToAction("index", "company");
             }
@@ -69,48 +77,58 @@ namespace timeTracker.Web.Controllers
             return View(viewModel);
         }
 
-        //// GET: Company/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
+        // GET: Company/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Company company = _data.Companies.Where(c => c.Id == id).Single();
 
-        //// POST: Company/Edit/5
-        //[HttpPost]
-        //public ActionResult Edit(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add update logic here
+            if (company == null)
+            {
+                return HttpNotFound();
+            } 
+            return View(company);
+        }
 
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        // POST: Company/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
 
-        //// GET: Company/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
-        //// POST: Company/Delete/5
-        //[HttpPost]
-        //public ActionResult Delete(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add delete logic here
+        // GET: Company/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
 
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        // POST: Company/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }

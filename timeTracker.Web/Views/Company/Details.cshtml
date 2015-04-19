@@ -71,7 +71,8 @@
 
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
         @Html.ActionLink("Back to List", "Index") |
-        @Html.ActionLink("Add New Project", "Create", "Project", new { CompanyId = @Model.Id, CompanyName = Model.Name }, null)
+        @Html.ActionLink("Add New Project", "Create", "Project", new { CompanyId = @Model.Id, CompanyName = Model.Name }, null) |
+        @Html.ActionLink("Edit Company", "Edit", "Company", new { id = Model.Id}, null)
     </p>
 
 </div>

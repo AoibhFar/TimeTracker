@@ -26,7 +26,9 @@ namespace timeTracker.Web.Controllers
 
         public JsonResult GetBarJsonData()
         {
-            var data = new[] { new {Role = "Junior Developer", Rate = 20},
+
+            var data = new[] { 
+            new {Role = "Junior Developer", Rate = 20},
             new {Role = "Senior Developer", Rate = 35},
             new {Role = "Junior Tester", Rate = 15},
             new {Role = "Senior Developer", Rate = 25},

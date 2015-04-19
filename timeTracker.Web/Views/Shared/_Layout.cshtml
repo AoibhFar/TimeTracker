@@ -33,9 +33,10 @@
                                        
                                         <li>@Html.ActionLink("Companies", "Index", "Company")</li>
                                         <li>@Html.ActionLink("Projects", "Index", "Project")</li>
-                                        <li>@Html.ActionLink("Add Employee", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                        <li>@Html.ActionLink("Employees", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
                                         <li class="divider"></li>
-                                        <li class="dropdown-header">Roles Admin</li>
+                                        <li>@Html.ActionLink("BarChart", "Index", "BarChart")</li>
+                                        <li>@Html.ActionLink("PieChart", "Index", "Dashboard")</li>
                                         <li>@Html.ActionLink("Roles Admin", "Index", "RolesAdmin")</li>
                                         <li>@Html.ActionLink("Users Admin", "Index", "UsersAdmin")</li>
                                     </ul>

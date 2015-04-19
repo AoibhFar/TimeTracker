@@ -21,6 +21,6 @@ namespace timeTracker.Domain
        [Display(Name = "Contact Email")]
        public virtual string Contactemail { get; set; }
        public virtual string Description { get; set; }
-       public virtual ICollection<Project> Projects { get; set; } 
+       public virtual ICollection<Project> Projects { get; set; }
     }
 }

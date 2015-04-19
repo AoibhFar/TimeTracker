@@ -330,6 +330,7 @@
     <Content Include="Views\TimeSheetEntry\Index.cshtml" />
     <Content Include="Views\BarChart\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Company\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
