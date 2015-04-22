@@ -6,7 +6,10 @@
     <title>@ViewBag.Title - TimeTracker - Employee Scheduling Simplified</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @using Microsoft.AspNet.Identity;
 
+
+    <meta name="description" content="TimeTracker Web Application" />
 </head>
 <body>
     <div class="bs-component">
@@ -22,45 +25,59 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("TimeSheets", "Index", "TimeSheet")</li>
 
-                            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                            {
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Area <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                       
-                                        <li>@Html.ActionLink("Companies", "Index", "Company")</li>
-                                        <li>@Html.ActionLink("Projects", "Index", "Project")</li>
-                                        <li>@Html.ActionLink("Employees", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                                        <li class="divider"></li>
-                                        <li>@Html.ActionLink("BarChart", "Index", "BarChart")</li>
-                                        <li>@Html.ActionLink("PieChart", "Index", "Dashboard")</li>
-                                        <li>@Html.ActionLink("Roles Admin", "Index", "RolesAdmin")</li>
-                                        <li>@Html.ActionLink("Users Admin", "Index", "UsersAdmin")</li>
-                                    </ul>
-                                </li>
-                            }
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        @if (Request.IsAuthenticated)
+                        {
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">TimeSheets<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("View TimeSheets", "Index", "TimeSheet")</li>
+                                    <li>@Html.ActionLink("Add New TimeSheet", "Create", "TimeSheet")</li>
+                                </ul>
+                            </li>
+                        }
+
+
+                        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Area <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+
+                                    <li>@Html.ActionLink("Companies", "Index", "Company")</li>
+                                    <li>@Html.ActionLink("Projects", "Index", "Project")</li>
+                                    <li>@Html.ActionLink("Employees", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                    <li class="divider"></li>
+                                    <li>@Html.ActionLink("Employee Rate", "Index", "BarChart")</li>
+                                    <li>@Html.ActionLink("Annual Leave", "Index", "Dashboard")</li>
+                                    @*<li>@Html.ActionLink("Roles Admin", "Index", "RolesAdmin")</li>
+                                    <li>@Html.ActionLink("Users Admin", "Index", "UsersAdmin")</li>*@
+                                </ul>
+                            </li>
+                        }
                     </ul>
-                    @Html.Partial("_LoginPartial")
+
+
+                        @Html.Partial("_LoginPartial")
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <br />
-    <br />
+        <br />
+        <br />
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - TimeTracker - Employee Scheduling Simplified by Aoibheann Farrell</p>
-        </footer>
-    </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - TimeTracker - Employee Scheduling Simplified by Aoibheann Farrell</p>
+            </footer>
+        </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
 </html>

@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Company.cs" />
-    <Compile Include="Employee.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="ITimeTrackerDataSource.cs" />
     <Compile Include="Project.cs" />

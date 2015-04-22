@@ -1,32 +1,41 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using timeTracker.Domain;
 using timeTracker.Web.Infrastructure;
+using timeTracker.Web.Models;
 using timeTracker.Web.ViewModels;
 
 namespace timeTracker.Web.Controllers
 {
+    [Authorize]
     public class TimeSheetController : Controller
     {
+
         private readonly ITimeTrackerDataSource _data;
 
         public TimeSheetController(ITimeTrackerDataSource data)
        
         {
-            // GET: TimeSheet
             _data = data;
         }
-       
+
         public ActionResult Index()
         {
-            return View();
+            var allTimesheets = _data.TimeSheets;
+            return View(allTimesheets);
         }
+
+     
+
         // GET: TimeSheet/Details/5
         public ActionResult Details(int? id)
         {
@@ -44,19 +53,30 @@ namespace timeTracker.Web.Controllers
         }
 
         // GET: TimeSheet/Create
+        [HttpGet]
         public ActionResult Create()
         {
-            return View();
+
+            var model = new CreateTimeSheetViewModel();
+            model.OwnerId = User.Identity.GetUserId();
+            model.OwnerName = User.Identity.GetUserName();
+            return View(model);
         }
 
+
         // POST: TimeSheet/Create
+        [HttpPost]
         public ActionResult Create(CreateTimeSheetViewModel viewModel)
         {
+           
             if (ModelState.IsValid)
             {
                 var timesheet = new TimeSheet
                 {
-
+                    OwnerId = viewModel.OwnerId,
+                    OwnerName = viewModel.OwnerName,
+                    WeeklyHours = viewModel.WeeklyHours,
+                    WeekStarting = viewModel.WeekStarting
                 };
 
                 _data.addTimeSheet(timesheet);
@@ -76,39 +96,38 @@ namespace timeTracker.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TimeSheet timesheet = _data.TimeSheets.Where(t => t.Id == id).Single();
+            var timeSheet = _data.TimeSheets.Single(t => t.Id == id);
 
-            if (timesheet == null)
+            if (timeSheet == null)
             {
                 return HttpNotFound();
             }
-            return View(timesheet);
+            return View(timeSheet);
         }
 
         // POST: TimeSheet/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,EmployeeId,WeekStarting,WeeklyHours")] TimeSheet timeSheet)
         {
             if (ModelState.IsValid)
             {
-                _data.Entry(timeSheet).State = EntityState.Modified;
-                _data.SaveChanges();
+                _data.editTimeSheet(timeSheet);
+                _data.Save();
                 return RedirectToAction("Index");
             }
             return View(timeSheet);
         }
 
         // GET: TimeSheet/Delete/5
+        [HttpGet]
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TimeSheet timeSheet = _data.TimeSheets.Find(id);
+            var timeSheet = _data.TimeSheets.Single(t => t.Id == id);
             if (timeSheet == null)
             {
                 return HttpNotFound();
@@ -121,19 +140,19 @@ namespace timeTracker.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            TimeSheet timeSheet = _data.TimeSheets.Find(id);
-            _data.TimeSheets.Remove(timeSheet);
-            _data.SaveChanges();
+            var timeSheet = _data.TimeSheets.Single(t => t.Id == id);
+            _data.deleteTimeSheet(timeSheet);
+            _data.Save();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _data.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        _data.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

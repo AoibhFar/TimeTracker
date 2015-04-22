@@ -18,6 +18,8 @@ namespace timeTracker.Web.ViewModels
         [Display(Name = "Company Name")]
         public string Name { get; set; }
 
+        public int CompanyId { get; set; }
+
         [Required]
         [Display(Name = "Contact Person")]
         public string Contactperson { get; set; }

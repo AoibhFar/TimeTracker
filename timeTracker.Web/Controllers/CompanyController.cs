@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using timeTracker.Domain;
 using timeTracker.Web.Infrastructure;
 using timeTracker.Web.ViewModels;
+using PagedList;
 
 
 namespace timeTracker.Web.Controllers
@@ -22,12 +23,55 @@ namespace timeTracker.Web.Controllers
             _data = data;
         }
 
-        // GET: Company
-         public ActionResult Index()
-         {
-             var allCompanies = _data.Companies;
-             return View(allCompanies);
-         }
+        ////GET: Company
+        //public ActionResult Index()
+        //{
+        //    var allCompanies = _data.Companies;
+        //    return View(allCompanies);
+        //}
+
+        public ActionResult Index(string sortOrder, string currentFilter,string searchString, int? page)
+        {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.ContactNameSortParam = String.IsNullOrEmpty(sortOrder) ? "contact_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+            var companies = _data.Companies;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                companies = companies.Where(c => c.Name.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    companies = companies.OrderByDescending(c => c.Name);
+                    break;
+
+                case "contact_desc":
+                    companies = companies.OrderByDescending(c => c.Contactperson);
+                    break;
+                
+                default:
+                    companies = companies.OrderBy(c => c.Name);
+                    break;
+            }
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            return View(companies.ToPagedList(pageNumber,pageSize));
+        }
 
         // GET: Company/Details/5
         public ActionResult Details(int id)
@@ -48,6 +92,7 @@ namespace timeTracker.Web.Controllers
 
 
         // GET: Company/Create
+        [Authorize(Roles="Admin")]
         public ActionResult Create()
         {
             return View();
@@ -78,13 +123,15 @@ namespace timeTracker.Web.Controllers
         }
 
         // GET: Company/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Company company = _data.Companies.Where(c => c.Id == id).Single();
+            
+            var company = _data.Companies.Single(c => c.Id == id);
 
             if (company == null)
             {
@@ -93,42 +140,45 @@ namespace timeTracker.Web.Controllers
             return View(company);
         }
 
-        // POST: Company/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Company company)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                _data.editCompany(company);
+                _data.Save();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(company);
         }
 
         // GET: Company/Delete/5
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var company = _data.Companies.Single(t => t.Id == id);
+            if (company == null)
+            {
+                return HttpNotFound();
+            }
+            return View(company);
         }
 
         // POST: Company/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            var company = _data.Companies.Single(t => t.Id == id);
+            _data.deleteCompany(company);
+            _data.Save();
+            return RedirectToAction("Index");
         }
     }
 }

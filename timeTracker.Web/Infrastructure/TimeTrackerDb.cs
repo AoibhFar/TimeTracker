@@ -18,7 +18,6 @@ namespace timeTracker.Web.Infrastructure
             return new TimeTrackerDb();
         }
 
-        public DbSet<Employee> Employees { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<TimeSheet> TimeSheets { get; set; }
@@ -36,9 +35,33 @@ namespace timeTracker.Web.Infrastructure
             Companies.Add(company);
         }
 
-        void ITimeTrackerDataSource.deleteCompany(Company company) { }
+        void ITimeTrackerDataSource.deleteCompany(Company company) 
+        {
+            Companies.Remove(company);
+        }
 
-        void ITimeTrackerDataSource.editCompany(Company company) { }
+        void ITimeTrackerDataSource.editCompany(Company company) 
+        {
+
+            Entry(company).State = EntityState.Modified;
+        }
+
+        // Methods for Project
+
+        void ITimeTrackerDataSource.addProject(Project project)
+        {
+            Projects.Add(project);
+        }
+
+        void ITimeTrackerDataSource.deleteProject(Project project) 
+        {
+            Projects.Remove(project);
+        }
+
+        void ITimeTrackerDataSource.editProject(Project project) 
+        {
+            Entry(project).State = EntityState.Modified;
+        }
 
         // Methods for TimeSheet
 
@@ -48,9 +71,17 @@ namespace timeTracker.Web.Infrastructure
 
         }
 
-        void ITimeTrackerDataSource.deleteTimeSheet(TimeSheet timesheet) { }
+        void ITimeTrackerDataSource.deleteTimeSheet(TimeSheet timesheet)
+        {
+            TimeSheets.Remove(timesheet);
 
-        void ITimeTrackerDataSource.editTimeSheet(TimeSheet timesheet) { }
+        }
+
+        void ITimeTrackerDataSource.editTimeSheet(TimeSheet timesheet)
+        {
+            Entry(timesheet).State = EntityState.Modified;
+
+        }
 
         // Methods for TimeSheetEntry
 
@@ -60,14 +91,16 @@ namespace timeTracker.Web.Infrastructure
 
         }
 
-        void ITimeTrackerDataSource.deleteTimeSheetEntry(TimeSheetEntry entry) { }
+        void ITimeTrackerDataSource.deleteTimeSheetEntry(TimeSheetEntry entry) {
 
-        void ITimeTrackerDataSource.editTimeSheetEntry(TimeSheetEntry entry) { }
+            TimeSheetEntries.Remove(entry);        
+        }
 
+        void ITimeTrackerDataSource.editTimeSheetEntry(TimeSheetEntry entry) {
 
-        IQueryable<Employee> ITimeTrackerDataSource.Employees
-        {
-            get { return Employees; }
+          Entry(entry).State = EntityState.Modified;
+            
+            
         }
 
         IQueryable<Project> ITimeTrackerDataSource.Projects
@@ -89,5 +122,6 @@ namespace timeTracker.Web.Infrastructure
         {
             get { return TimeSheetEntries; }
         }
+
     }
 }

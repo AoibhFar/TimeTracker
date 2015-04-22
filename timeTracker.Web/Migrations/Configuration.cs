@@ -34,29 +34,46 @@ namespace timeTracker.Web.Migrations
                 var role = new IdentityRole { Name = "User" };
                 roleManager.Create(role);
             }
-            if (!context.Users.Any(u => u.UserName == "admin@mail.com"))
+            if (!context.Users.Any(u => u.UserName == "Admin User"))
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser { UserName = "admin@mail.com" };
+                var user = new ApplicationUser { 
+                    
+                    Name = "Admin User",
+                    UserName = "admin@mail.com", 
+                    Email = "admin@mail.com" ,
+                    Department = "Administration",
+
+                };
 
                 userManager.Create(user, "ChangeItAsap0!");
                 userManager.AddToRole(user.Id, "Admin");
             }
+
+            //if (!context.Users.Any(u => u.UserName == "Guest User"))
+            //{
+            //    var store = new UserStore<ApplicationUser>(context);
+            //    var userManager = new UserManager<ApplicationUser>(store);
+            //    var user = new ApplicationUser
+            //    {
+
+            //        Name = "Guest User",
+            //        UserName = "Guest User",
+            //        Email = "guest@mail.com",
+            //        Department = "Guest",
+
+            //    };
+
+            //    userManager.Create(user, "Guest1!");
+            //    userManager.AddToRole(user.Id, "User");
+            //}
 
             context.Companies.AddOrUpdate(d => d.Name,
                 new Company() { Name = "HydroP", Contactperson = "Ann Reilly", Contactemail = "areilly@gmail.com", Contactnumber = "01 4578995", Description = "Renewable Energy Engineering" },
                 new Company() { Name = "DCA Ltd", Contactperson = "Joe Bloggs", Contactemail = "jbloggs@gmail.com", Contactnumber = "01 9653325", Description = "Chartered Accountants" },
                 new Company() { Name = "Paws a While", Contactperson = "Mary Smith", Contactemail = "paws@gmail.com", Contactnumber = "01 568563454", Description = "Animal Charity" },
                 new Company() { Name = "Jupitor Engineering", Contactperson = "David Buckley", Contactemail = "dbuckley@gmail.com", Contactnumber = "01 49834675", Description = "Civil Engineering" }
-            );
-
-            context.Employees.AddOrUpdate(d => d.Name,
-                new Employee() { Name = "Aoibheann Farrell", Department = "Development", Role = "App developer", Manager = "Avril" },
-                new Employee() { Name = "Damien Reynolds", Department = "Development", Role = "SharePoint developer", Manager = "Avril" },
-                new Employee() { Name = "Lorna Flynn", Department = "Sales", Role = "Sales Consultant", Manager = "Mary" },
-                new Employee() { Name = "Chris Fagan", Department = "Marketing", Role = "Marketing Intern", Manager = "David" }
-
             );
 
         }
