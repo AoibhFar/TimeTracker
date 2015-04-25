@@ -29,7 +29,8 @@ namespace timeTracker.Web.Controllers
         // GET: TimeSheetEntry
         public ActionResult Index()
         {
-            var allTimesheetEntries = _data.TimeSheetEntries;
+            //var allTimesheetEntries = _data.TimeSheetEntries;
+            var allTimesheetEntries = _data.Query<TimeSheetEntry>().ToList();
             return View(allTimesheetEntries);
         }
 
@@ -40,7 +41,8 @@ namespace timeTracker.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var timesheetentry = _data.TimeSheetEntries.Single(t => t.Id == id);
+            //var timesheetentry = _data.TimeSheetEntries.Single(t => t.Id == id);
+            var timesheetentry = _data.Query<TimeSheetEntry>().Single(t => t.Id == id);
             if (timesheetentry == null)
             {
                 return HttpNotFound();
@@ -52,11 +54,17 @@ namespace timeTracker.Web.Controllers
         [HttpGet]
         public ActionResult Create(int timesheetId)
         {
-            ViewBag.Companies = (from c in _data.Companies
-                                 select new SelectListItem{Text = c.Name}).ToList();
+            //ViewBag.Companies = (from c in _data.Companies
+            //                     select new SelectListItem{Text = c.Name}).ToList();
 
-            ViewBag.Projects = (from p in _data.Projects
-                                select new SelectListItem{Text = p.Name}).ToList();
+            //ViewBag.Projects = (from p in _data.Projects
+            //                    select new SelectListItem{Text = p.Name}).ToList();
+
+            ViewBag.Companies = (from c in _data.Query<Company>()
+                                 select new SelectListItem { Text = c.Name }).ToList();
+
+            ViewBag.Projects = (from p in _data.Query<Project>()
+                                select new SelectListItem { Text = p.Name }).ToList();
 
             ViewBag.Days = new List<SelectListItem>
            {
@@ -80,9 +88,13 @@ namespace timeTracker.Web.Controllers
             if (ModelState.IsValid)
             {
                 //Get the related TimeSheet
-                var timesheet = _data.TimeSheets.Single(d => d.Id == viewModel.TimeSheetId);
-                var company = _data.Companies.Single(c => c.Name == viewModel.CompanyName);
-                var project = _data.Projects.Single(p => p.Name == viewModel.ProjectName);
+                //var timesheet = _data.TimeSheets.Single(d => d.Id == viewModel.TimeSheetId);
+                //var company = _data.Companies.Single(c => c.Name == viewModel.CompanyName);
+                //var project = _data.Projects.Single(p => p.Name == viewModel.ProjectName);
+
+                var timesheet = _data.Query<TimeSheet>().Single(d => d.Id == viewModel.TimeSheetId);
+                var company = _data.Query<Company>().Single(c => c.Name == viewModel.CompanyName);
+                var project = _data.Query<Project>().Single(p => p.Name == viewModel.ProjectName);
                 var timesheetentry = new TimeSheetEntry
                 {
                    OwnerId = viewModel.OwnerId,
@@ -101,7 +113,8 @@ namespace timeTracker.Web.Controllers
                 };
 
                  timesheet.TimeSheetEntries.Add(timesheetentry);
-                _data.addTimeSheetEntry(timesheetentry);
+                //_data.addTimeSheetEntry(timesheetentry);
+                 _data.Add(timesheetentry);
                 _data.Save();
 
                 return RedirectToAction("details", "timesheet", new { id = viewModel.TimeSheetId });
@@ -118,7 +131,8 @@ namespace timeTracker.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var timesheetentry = _data.TimeSheetEntries.Single(t => t.Id == id);
+           // var timesheetentry = _data.TimeSheetEntries.Single(t => t.Id == id);
+            var timesheetentry = _data.Query<TimeSheetEntry>().Single(t => t.Id == id);
             if (timesheetentry == null)
             {
                 return HttpNotFound();
@@ -134,7 +148,8 @@ namespace timeTracker.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _data.editTimeSheetEntry(timesheetentry);
+               // _data.editTimeSheetEntry(timesheetentry);
+                _data.Update(timesheetentry);
                 _data.Save();
                 return RedirectToAction("Index");
             }
@@ -149,7 +164,8 @@ namespace timeTracker.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var timesheetentry = _data.TimeSheetEntries.Single(t => t.Id == id);
+            //var timesheetentry = _data.TimeSheetEntries.Single(t => t.Id == id);
+            var timesheetentry = _data.Query<TimeSheetEntry>().Single(t => t.Id == id);
             if (timesheetentry == null)
             {
                 return HttpNotFound();
@@ -163,9 +179,13 @@ namespace timeTracker.Web.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             //Get the TimeSheetEntry and related TimeSheet
-            var timesheetentry = _data.TimeSheetEntries.Single(t => t.Id == id);
-            var timesheet = _data.TimeSheets.Single(d => d.Id == timesheetentry.TimeSheetId);
-            _data.deleteTimeSheetEntry(timesheetentry);
+            //var timesheetentry = _data.TimeSheetEntries.Single(t => t.Id == id);
+            //var timesheet = _data.TimeSheets.Single(d => d.Id == timesheetentry.TimeSheetId);
+            //_data.deleteTimeSheetEntry(timesheetentry);
+
+            var timesheetentry = _data.Query<TimeSheetEntry>().Single(t => t.Id == id);
+            var timesheet = _data.Query<TimeSheet>().Single(d => d.Id == timesheetentry.TimeSheetId);
+            _data.Remove(timesheetentry);
             _data.Save();
             return RedirectToAction("details", "timesheet", new { id = timesheetentry.TimeSheetId });
         }

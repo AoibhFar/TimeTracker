@@ -45,11 +45,13 @@ namespace timeTracker.Web.Controllers
                 searchString = currentFilter;
             }
             ViewBag.CurrentFilter = searchString;
-            var companies = _data.Companies;
+            //var companies = _data.Companies;
+            var companies = _data.Query<Company>();
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                companies = companies.Where(c => c.Name.Contains(searchString));
+                //companies = companies.Where(c => c.Name.Contains(searchString));
+                companies = _data.Query<Company>().Where(c => c.Name.Contains(searchString));
             }
 
             switch (sortOrder)
@@ -80,8 +82,8 @@ namespace timeTracker.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var model = _data.Companies.Single(d => d.Id == id);
-
+            var model = _data.Query<Company>().Single(d => d.Id == id);
+            
             if (model == null)
             {
                 return HttpNotFound();
@@ -113,7 +115,7 @@ namespace timeTracker.Web.Controllers
                     Description = viewModel.Description
                 };
 
-                _data.addCompany(company);
+                _data.Add(company);
                 _data.Save();
 
                 return RedirectToAction("index", "company");
@@ -131,7 +133,7 @@ namespace timeTracker.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             
-            var company = _data.Companies.Single(c => c.Id == id);
+            var company = _data.Query<Company>().Single(c => c.Id == id);
 
             if (company == null)
             {
@@ -146,7 +148,7 @@ namespace timeTracker.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _data.editCompany(company);
+                _data.Update(company);
                 _data.Save();
                 return RedirectToAction("Index");
             }
@@ -162,7 +164,7 @@ namespace timeTracker.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var company = _data.Companies.Single(t => t.Id == id);
+            var company = _data.Query<Company>().Single(t => t.Id == id);
             if (company == null)
             {
                 return HttpNotFound();
@@ -175,8 +177,8 @@ namespace timeTracker.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            var company = _data.Companies.Single(t => t.Id == id);
-            _data.deleteCompany(company);
+            var company = _data.Query<Company>().Single(t => t.Id == id);
+            _data.Remove(company);
             _data.Save();
             return RedirectToAction("Index");
         }

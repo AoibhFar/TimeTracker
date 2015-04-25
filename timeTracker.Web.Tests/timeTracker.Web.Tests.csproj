@@ -92,9 +92,13 @@
     <Reference Include="System.Net.Http.WebRequest" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CompanyContollerTest.cs" />
+    <Compile Include="Fakes\FakeControllerContext.cs" />
+    <Compile Include="Fakes\FakeTimeTrackerDb.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="TestData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -103,11 +107,16 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\timeTracker.Domain\timeTracker.Domain.csproj">
+      <Project>{36467ac2-5db0-48a6-b276-60321b5b760e}</Project>
+      <Name>timeTracker.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\timeTracker.Web\timeTracker.Web.csproj">
       <Project>{3F62BF44-4F05-4F18-BBC5-4E3A34C2C0BA}</Project>
       <Name>timeTracker.Web</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

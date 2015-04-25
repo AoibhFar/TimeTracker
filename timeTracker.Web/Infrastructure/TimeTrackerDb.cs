@@ -23,105 +23,125 @@ namespace timeTracker.Web.Infrastructure
         public DbSet<TimeSheet> TimeSheets { get; set; }
         public DbSet<TimeSheetEntry> TimeSheetEntries { get; set; }
 
+        IQueryable<T> ITimeTrackerDataSource.Query<T>()
+        {
+            return Set<T>();
+        }
+
+        void ITimeTrackerDataSource.Add<T>(T entity)
+        {
+            Set<T>().Add(entity);
+        }
+
+        void ITimeTrackerDataSource.Update<T>(T entity)
+        {
+            Entry(entity).State = System.Data.Entity.EntityState.Modified;
+        }
+
+        void ITimeTrackerDataSource.Remove<T>(T entity)
+        {
+            Set<T>().Remove(entity);
+        }
         void ITimeTrackerDataSource.Save()
         {
             SaveChanges();
         }
 
-        // Methods for Company 
 
-        void ITimeTrackerDataSource.addCompany(Company company)
-        {
-            Companies.Add(company);
-        }
+        //// Methods for Company 
 
-        void ITimeTrackerDataSource.deleteCompany(Company company) 
-        {
-            Companies.Remove(company);
-        }
+        //void ITimeTrackerDataSource.addCompany(Company company)
+        //{
+        //    Companies.Add(company);
+        //}
 
-        void ITimeTrackerDataSource.editCompany(Company company) 
-        {
+        //void ITimeTrackerDataSource.deleteCompany(Company company) 
+        //{
+        //    Companies.Remove(company);
+        //}
 
-            Entry(company).State = EntityState.Modified;
-        }
+        //void ITimeTrackerDataSource.editCompany(Company company) 
+        //{
 
-        // Methods for Project
+        //    Entry(company).State = EntityState.Modified;
+        //}
 
-        void ITimeTrackerDataSource.addProject(Project project)
-        {
-            Projects.Add(project);
-        }
+        //// Methods for Project
 
-        void ITimeTrackerDataSource.deleteProject(Project project) 
-        {
-            Projects.Remove(project);
-        }
+        //void ITimeTrackerDataSource.addProject(Project project)
+        //{
+        //    Projects.Add(project);
+        //}
 
-        void ITimeTrackerDataSource.editProject(Project project) 
-        {
-            Entry(project).State = EntityState.Modified;
-        }
+        //void ITimeTrackerDataSource.deleteProject(Project project) 
+        //{
+        //    Projects.Remove(project);
+        //}
 
-        // Methods for TimeSheet
+        //void ITimeTrackerDataSource.editProject(Project project) 
+        //{
+        //    Entry(project).State = EntityState.Modified;
+        //}
 
-        void ITimeTrackerDataSource.addTimeSheet(TimeSheet timesheet)
-        {
-            TimeSheets.Add(timesheet);
+        //// Methods for TimeSheet
 
-        }
+        //void ITimeTrackerDataSource.addTimeSheet(TimeSheet timesheet)
+        //{
+        //    TimeSheets.Add(timesheet);
 
-        void ITimeTrackerDataSource.deleteTimeSheet(TimeSheet timesheet)
-        {
-            TimeSheets.Remove(timesheet);
+        //}
 
-        }
+        //void ITimeTrackerDataSource.deleteTimeSheet(TimeSheet timesheet)
+        //{
+        //    TimeSheets.Remove(timesheet);
 
-        void ITimeTrackerDataSource.editTimeSheet(TimeSheet timesheet)
-        {
-            Entry(timesheet).State = EntityState.Modified;
+        //}
 
-        }
+        //void ITimeTrackerDataSource.editTimeSheet(TimeSheet timesheet)
+        //{
+        //    Entry(timesheet).State = EntityState.Modified;
 
-        // Methods for TimeSheetEntry
+        //}
 
-        void ITimeTrackerDataSource.addTimeSheetEntry(TimeSheetEntry entry)
-        {
-            TimeSheetEntries.Add(entry);
+        //// Methods for TimeSheetEntry
 
-        }
+        //void ITimeTrackerDataSource.addTimeSheetEntry(TimeSheetEntry entry)
+        //{
+        //    TimeSheetEntries.Add(entry);
 
-        void ITimeTrackerDataSource.deleteTimeSheetEntry(TimeSheetEntry entry) {
+        //}
 
-            TimeSheetEntries.Remove(entry);        
-        }
+        //void ITimeTrackerDataSource.deleteTimeSheetEntry(TimeSheetEntry entry) {
 
-        void ITimeTrackerDataSource.editTimeSheetEntry(TimeSheetEntry entry) {
+        //    TimeSheetEntries.Remove(entry);        
+        //}
 
-          Entry(entry).State = EntityState.Modified;
+        //void ITimeTrackerDataSource.editTimeSheetEntry(TimeSheetEntry entry) {
+
+        //  Entry(entry).State = EntityState.Modified;
             
             
-        }
+        //}
 
-        IQueryable<Project> ITimeTrackerDataSource.Projects
-        {
-            get { return Projects; }
-        }
+        //IQueryable<Project> ITimeTrackerDataSource.Projects
+        //{
+        //    get { return Projects; }
+        //}
 
-        IQueryable<Company> ITimeTrackerDataSource.Companies
-        {
-            get { return Companies; }
-        }
+        //IQueryable<Company> ITimeTrackerDataSource.Companies
+        //{
+        //    get { return Companies; }
+        //}
 
-        IQueryable<TimeSheet> ITimeTrackerDataSource.TimeSheets
-        {
-            get { return TimeSheets; }
-        }
+        //IQueryable<TimeSheet> ITimeTrackerDataSource.TimeSheets
+        //{
+        //    get { return TimeSheets; }
+        //}
 
-        IQueryable<TimeSheetEntry> ITimeTrackerDataSource.TimeSheetEntries
-        {
-            get { return TimeSheetEntries; }
-        }
+        //IQueryable<TimeSheetEntry> ITimeTrackerDataSource.TimeSheetEntries
+        //{
+        //    get { return TimeSheetEntries; }
+        //}
 
     }
 }

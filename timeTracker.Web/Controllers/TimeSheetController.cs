@@ -30,7 +30,8 @@ namespace timeTracker.Web.Controllers
 
         public ActionResult Index()
         {
-            var allTimesheets = _data.TimeSheets;
+           // var allTimesheets = _data.TimeSheets;
+            var allTimesheets = _data.Query<TimeSheet>().ToList();
             return View(allTimesheets);
         }
 
@@ -44,7 +45,8 @@ namespace timeTracker.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var timesheet = _data.TimeSheets.Single(t => t.Id == id);
+            //var timesheet = _data.TimeSheets.Single(t => t.Id == id);
+            var timesheet = _data.Query<TimeSheet>().Single(t => t.Id == id);
             if (timesheet == null)
             {
                 return HttpNotFound();
@@ -79,7 +81,8 @@ namespace timeTracker.Web.Controllers
                     WeekStarting = viewModel.WeekStarting
                 };
 
-                _data.addTimeSheet(timesheet);
+                //_data.addTimeSheet(timesheet);
+                _data.Add(timesheet);
                 _data.Save();
 
                 return RedirectToAction("index", "timesheet");
@@ -96,7 +99,8 @@ namespace timeTracker.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var timeSheet = _data.TimeSheets.Single(t => t.Id == id);
+            //var timeSheet = _data.TimeSheets.Single(t => t.Id == id);
+            var timeSheet = _data.Query<TimeSheet>().Single(t => t.Id == id);
 
             if (timeSheet == null)
             {
@@ -112,7 +116,8 @@ namespace timeTracker.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _data.editTimeSheet(timeSheet);
+                //_data.editTimeSheet(timeSheet);
+                _data.Update(timeSheet);
                 _data.Save();
                 return RedirectToAction("Index");
             }
@@ -127,7 +132,8 @@ namespace timeTracker.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var timeSheet = _data.TimeSheets.Single(t => t.Id == id);
+            //var timeSheet = _data.TimeSheets.Single(t => t.Id == id);
+            var timeSheet = _data.Query<TimeSheet>().Single(t => t.Id == id);
             if (timeSheet == null)
             {
                 return HttpNotFound();
@@ -140,8 +146,10 @@ namespace timeTracker.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var timeSheet = _data.TimeSheets.Single(t => t.Id == id);
-            _data.deleteTimeSheet(timeSheet);
+            //var timeSheet = _data.TimeSheets.Single(t => t.Id == id);
+            //_data.deleteTimeSheet(timeSheet);
+            var timeSheet = _data.Query<TimeSheet>().Single(t => t.Id == id);
+            _data.Remove(timeSheet);
             _data.Save();
             return RedirectToAction("Index");
         }
