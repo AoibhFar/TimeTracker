@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @using Microsoft.AspNet.Identity;
-
-
+    <link href="~Content/toastr.css" rel="stylesheet" />
     <meta name="description" content="TimeTracker Web Application" />
 </head>
 <body>
@@ -53,31 +52,29 @@
                                     <li>@Html.ActionLink("Employee Rate", "Index", "BarChart")</li>
                                     <li>@Html.ActionLink("Annual Leave", "Index", "Dashboard")</li>
                                     @*<li>@Html.ActionLink("Roles Admin", "Index", "RolesAdmin")</li>
-                                    <li>@Html.ActionLink("Users Admin", "Index", "UsersAdmin")</li>*@
+                                        <li>@Html.ActionLink("Users Admin", "Index", "UsersAdmin")</li>*@
                                 </ul>
                             </li>
                         }
                     </ul>
-
-
-                        @Html.Partial("_LoginPartial")
-                    </div>
+                    @Html.Partial("_LoginPartial")
                 </div>
             </div>
         </div>
-        <br />
-        <br />
+    </div>
+    <br />
+    <br />
 
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - TimeTracker - Employee Scheduling Simplified by Aoibheann Farrell</p>
-            </footer>
-        </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - TimeTracker - Employee Scheduling Simplified by Aoibheann Farrell</p>
+        </footer>
+    </div>
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
-    </body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
 </html>

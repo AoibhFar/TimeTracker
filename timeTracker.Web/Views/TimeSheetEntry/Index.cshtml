@@ -1,4 +1,6 @@
-﻿@model IEnumerable<timeTracker.Domain.TimeSheetEntry>
+﻿@*@model IEnumerable<timeTracker.Domain.TimeSheetEntry>*@
+@model PagedList.IPagedList<timeTracker.Domain.TimeSheetEntry>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -9,28 +11,30 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.OwnerName)
+            @*@Html.DisplayNameFor(model => model.OwnerName)*@
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CompanyName)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().CompanyName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProjectName)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().ProjectName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Notes)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Notes)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Billable)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Billable)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Day)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Day)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Hours)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Hours)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Workdate)
+            @*@Html.DisplayNameFor(model => model.Workdate)*@
+            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParam, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -70,3 +74,7 @@
 }
 
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

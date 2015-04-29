@@ -1,0 +1,49 @@
+﻿@model timeTracker.Web.Models.LeaveChartModel
+
+@{
+    ViewBag.Title = "Leave Chart ";
+}
+
+<!--Load Google Chart Ajax API-->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+
+    google.load("visualization", "1", { packages: ["columnchart"] });
+    google.setOnLoadCallback(drawChart);
+
+
+    function drawChart() {
+
+        $.post('/BarChart/GetBarJsonData', {}, function (data) {
+
+            var tdata = new google.visualization.DataTable();
+            tdata.addColumn('string', '@Model.RoleTitle');
+            tdata.addColumn('number', '@Model.RateTitle');
+           
+            for (i = 0; i < data.length; i++) {
+
+                tdata.addRow([data[i].Role, data[i].Rate]);
+
+            }
+
+            var options = {
+                width: 600,
+                height: 300,
+                is3D: true,
+                title: 'Employee Roles and Rates',
+                tooltip: { isHtml: true },
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('chartdiv'));
+            chart.draw(tdata, options);
+
+            });
+
+        }
+
+    </script>
+<div id="chartdiv">
+</div>
+
+
+  

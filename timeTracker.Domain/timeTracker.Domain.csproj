@@ -58,6 +58,7 @@
     <Compile Include="TimeSheetEntry.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="timetracker.Domain_ClassDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

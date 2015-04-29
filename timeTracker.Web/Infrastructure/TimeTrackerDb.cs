@@ -28,9 +28,10 @@ namespace timeTracker.Web.Infrastructure
             return Set<T>();
         }
 
-        void ITimeTrackerDataSource.Add<T>(T entity)
+         void ITimeTrackerDataSource.Add<T>(T entity)
         {
-            Set<T>().Add(entity);
+             Set<T>().Add(entity);
+            
         }
 
         void ITimeTrackerDataSource.Update<T>(T entity)
@@ -42,106 +43,11 @@ namespace timeTracker.Web.Infrastructure
         {
             Set<T>().Remove(entity);
         }
+
         void ITimeTrackerDataSource.Save()
         {
             SaveChanges();
         }
-
-
-        //// Methods for Company 
-
-        //void ITimeTrackerDataSource.addCompany(Company company)
-        //{
-        //    Companies.Add(company);
-        //}
-
-        //void ITimeTrackerDataSource.deleteCompany(Company company) 
-        //{
-        //    Companies.Remove(company);
-        //}
-
-        //void ITimeTrackerDataSource.editCompany(Company company) 
-        //{
-
-        //    Entry(company).State = EntityState.Modified;
-        //}
-
-        //// Methods for Project
-
-        //void ITimeTrackerDataSource.addProject(Project project)
-        //{
-        //    Projects.Add(project);
-        //}
-
-        //void ITimeTrackerDataSource.deleteProject(Project project) 
-        //{
-        //    Projects.Remove(project);
-        //}
-
-        //void ITimeTrackerDataSource.editProject(Project project) 
-        //{
-        //    Entry(project).State = EntityState.Modified;
-        //}
-
-        //// Methods for TimeSheet
-
-        //void ITimeTrackerDataSource.addTimeSheet(TimeSheet timesheet)
-        //{
-        //    TimeSheets.Add(timesheet);
-
-        //}
-
-        //void ITimeTrackerDataSource.deleteTimeSheet(TimeSheet timesheet)
-        //{
-        //    TimeSheets.Remove(timesheet);
-
-        //}
-
-        //void ITimeTrackerDataSource.editTimeSheet(TimeSheet timesheet)
-        //{
-        //    Entry(timesheet).State = EntityState.Modified;
-
-        //}
-
-        //// Methods for TimeSheetEntry
-
-        //void ITimeTrackerDataSource.addTimeSheetEntry(TimeSheetEntry entry)
-        //{
-        //    TimeSheetEntries.Add(entry);
-
-        //}
-
-        //void ITimeTrackerDataSource.deleteTimeSheetEntry(TimeSheetEntry entry) {
-
-        //    TimeSheetEntries.Remove(entry);        
-        //}
-
-        //void ITimeTrackerDataSource.editTimeSheetEntry(TimeSheetEntry entry) {
-
-        //  Entry(entry).State = EntityState.Modified;
-            
-            
-        //}
-
-        //IQueryable<Project> ITimeTrackerDataSource.Projects
-        //{
-        //    get { return Projects; }
-        //}
-
-        //IQueryable<Company> ITimeTrackerDataSource.Companies
-        //{
-        //    get { return Companies; }
-        //}
-
-        //IQueryable<TimeSheet> ITimeTrackerDataSource.TimeSheets
-        //{
-        //    get { return TimeSheets; }
-        //}
-
-        //IQueryable<TimeSheetEntry> ITimeTrackerDataSource.TimeSheetEntries
-        //{
-        //    get { return TimeSheetEntries; }
-        //}
 
     }
 }

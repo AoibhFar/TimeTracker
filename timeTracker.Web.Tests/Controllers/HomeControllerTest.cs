@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using timeTracker.Web.Controllers;
 using System.Web.Mvc;
+using timeTracker.Web.Tests.Fakes;
 
 namespace timeTracker.Web.Tests
 {
@@ -9,16 +10,19 @@ namespace timeTracker.Web.Tests
     public class HomeControllerTest
     {
         [TestMethod]
-        public void HomeActionReturnsIndexView()
+        public void About()
         {
             // Arrange 
-            var homeController = new HomeController();
+            var db = new FakeTimeTrackerDb();
+            var controller = new HomeController(db);
 
             // Act
-            var result = homeController.Index() as ViewResult;
+
+            ViewResult result = controller.About() as ViewResult;
 
             //Assert
-            Assert.AreEqual("Index", result.ViewName);
+            Assert.IsNotNull(result.Model);
+            
         }
 
     }

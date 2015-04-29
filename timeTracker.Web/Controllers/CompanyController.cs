@@ -23,13 +23,6 @@ namespace timeTracker.Web.Controllers
             _data = data;
         }
 
-        ////GET: Company
-        //public ActionResult Index()
-        //{
-        //    var allCompanies = _data.Companies;
-        //    return View(allCompanies);
-        //}
-
         public ActionResult Index(string sortOrder, string currentFilter,string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
@@ -45,12 +38,10 @@ namespace timeTracker.Web.Controllers
                 searchString = currentFilter;
             }
             ViewBag.CurrentFilter = searchString;
-            //var companies = _data.Companies;
             var companies = _data.Query<Company>();
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                //companies = companies.Where(c => c.Name.Contains(searchString));
                 companies = _data.Query<Company>().Where(c => c.Name.Contains(searchString));
             }
 
@@ -78,10 +69,7 @@ namespace timeTracker.Web.Controllers
         // GET: Company/Details/5
         public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+           
             var model = _data.Query<Company>().Single(d => d.Id == id);
             
             if (model == null)
@@ -118,7 +106,7 @@ namespace timeTracker.Web.Controllers
                 _data.Add(company);
                 _data.Save();
 
-                return RedirectToAction("index", "company");
+                return RedirectToAction("Index", "Company");
             }
 
             return View(viewModel);
@@ -158,7 +146,7 @@ namespace timeTracker.Web.Controllers
         // GET: Company/Delete/5
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -182,5 +170,13 @@ namespace timeTracker.Web.Controllers
             _data.Save();
             return RedirectToAction("Index");
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            _data.Dispose();
+            base.Dispose(disposing);
+        }
+
+
     }
 }

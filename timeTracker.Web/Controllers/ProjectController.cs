@@ -21,7 +21,6 @@ namespace timeTracker.Web.Controllers
         // GET: Company
          public ActionResult Index()
          {
-             //var allProjects = _data.Projects;
              var allProjects = _data.Query<Project>().ToList();
              return View(allProjects);
          }
@@ -29,7 +28,6 @@ namespace timeTracker.Web.Controllers
         // GET: Project/Details/5
         public ActionResult Details(int id)
         {
-           // var model = _data.Projects.Single(d => d.Id == id);
             var model = _data.Query<Project>().Single(d => d.Id == id);
             return View(model);
         }
@@ -49,7 +47,6 @@ namespace timeTracker.Web.Controllers
             if(ModelState.IsValid)
             {
                 //Get the related Company
-                //var company = _data.Companies.Single(c => c.Name == viewModel.Company);
                 var company = _data.Query<Company>().Single(c => c.Name == viewModel.Company);
 
                 //Create a new project
@@ -65,7 +62,6 @@ namespace timeTracker.Web.Controllers
 
                 //Add it to the Company's list of projects
                 company.Projects.Add(project);
-               // _data.addProject(project);
                 _data.Add(project);
                 _data.Save();
                 return RedirectToAction("details", "company", new {id = viewModel.CompanyId});
@@ -81,7 +77,6 @@ namespace timeTracker.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //var project = _data.Projects.Single(t => t.Id == id);
             var project = _data.Query<Project>().Single(t => t.Id == id);
             if (project == null)
             {
@@ -97,7 +92,6 @@ namespace timeTracker.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                //_data.editProject(project);
                 _data.Update(project);
                 _data.Save();
                 return RedirectToAction("Index");
@@ -113,7 +107,7 @@ namespace timeTracker.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //var project = _data.Projects.Single(t => t.Id == id);
+ 
             var project = _data.Query<Project>().Single(t => t.Id == id);
             
             if (project == null)
@@ -128,10 +122,6 @@ namespace timeTracker.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            //Get the Project and related Company
-            //var project = _data.Projects.Single(t => t.Id == id);
-            //var company = _data.Companies.Single(d => d.Id == project.CompanyId);
-            //_data.deleteProject(project);
 
             var project = _data.Query<Project>().Single(t => t.Id == id);
             var company = _data.Query<Company>().Single(d => d.Id == project.CompanyId);
@@ -139,6 +129,13 @@ namespace timeTracker.Web.Controllers
             _data.Save();
             return RedirectToAction("details", "company", new { id = project.CompanyId });
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            _data.Dispose();
+            base.Dispose(disposing);
+        }
+
       
     }
 }

@@ -13,6 +13,7 @@ using timeTracker.Domain;
 using timeTracker.Web.Infrastructure;
 using timeTracker.Web.Models;
 using timeTracker.Web.ViewModels;
+using PagedList;
 
 namespace timeTracker.Web.Controllers
 {
@@ -21,18 +22,58 @@ namespace timeTracker.Web.Controllers
     {
 
         private readonly ITimeTrackerDataSource _data;
+        IdentityDbContext context = new IdentityDbContext();
+
 
         public TimeSheetController(ITimeTrackerDataSource data)
        
         {
             _data = data;
+         
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-           // var allTimesheets = _data.TimeSheets;
-            var allTimesheets = _data.Query<TimeSheet>().ToList();
-            return View(allTimesheets);
+ 
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParam = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+            var timesheets = _data.Query<TimeSheet>();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                timesheets = _data.Query<TimeSheet>().Where(t => t.OwnerName.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    timesheets = timesheets.OrderByDescending(t => t.OwnerName);
+                    break;
+
+                case "date_desc":
+                    timesheets = timesheets.OrderByDescending(t => t.WeekStarting);
+                    break;
+
+                default:
+                    timesheets = timesheets.OrderBy(t => t.OwnerName);
+                    break;
+            }
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            return View(timesheets.ToPagedList(pageNumber, pageSize));
         }
 
      
@@ -44,8 +85,6 @@ namespace timeTracker.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            //var timesheet = _data.TimeSheets.Single(t => t.Id == id);
             var timesheet = _data.Query<TimeSheet>().Single(t => t.Id == id);
             if (timesheet == null)
             {
@@ -58,10 +97,13 @@ namespace timeTracker.Web.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-
+         
+          ViewBag.Employees = (from u in context.Users
+                               select new SelectListItem { Text = u.UserName }).ToList();
+            
             var model = new CreateTimeSheetViewModel();
-            model.OwnerId = User.Identity.GetUserId();
-            model.OwnerName = User.Identity.GetUserName();
+            //model.OwnerId = User.Identity.GetUserId();
+            //model.OwnerName = User.Identity.GetUserName();
             return View(model);
         }
 
@@ -73,19 +115,23 @@ namespace timeTracker.Web.Controllers
            
             if (ModelState.IsValid)
             {
+                var user = (from u in context.Users
+                            where u.UserName == viewModel.OwnerName
+                            select u).Single();
                 var timesheet = new TimeSheet
                 {
-                    OwnerId = viewModel.OwnerId,
+                    //OwnerId = viewModel.OwnerId,
+                    OwnerId = user.Id,
                     OwnerName = viewModel.OwnerName,
                     WeeklyHours = viewModel.WeeklyHours,
                     WeekStarting = viewModel.WeekStarting
                 };
-
-                //_data.addTimeSheet(timesheet);
-                _data.Add(timesheet);
+                 _data.Add(timesheet);
                 _data.Save();
-
+                TempData["Message"] = "Added";
+                TempData["Name"] = timesheet.OwnerName;
                 return RedirectToAction("index", "timesheet");
+              
             }
 
             return View(viewModel);
@@ -99,7 +145,6 @@ namespace timeTracker.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //var timeSheet = _data.TimeSheets.Single(t => t.Id == id);
             var timeSheet = _data.Query<TimeSheet>().Single(t => t.Id == id);
 
             if (timeSheet == null)
@@ -116,7 +161,6 @@ namespace timeTracker.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                //_data.editTimeSheet(timeSheet);
                 _data.Update(timeSheet);
                 _data.Save();
                 return RedirectToAction("Index");
@@ -132,7 +176,6 @@ namespace timeTracker.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //var timeSheet = _data.TimeSheets.Single(t => t.Id == id);
             var timeSheet = _data.Query<TimeSheet>().Single(t => t.Id == id);
             if (timeSheet == null)
             {
@@ -146,21 +189,17 @@ namespace timeTracker.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            //var timeSheet = _data.TimeSheets.Single(t => t.Id == id);
-            //_data.deleteTimeSheet(timeSheet);
             var timeSheet = _data.Query<TimeSheet>().Single(t => t.Id == id);
             _data.Remove(timeSheet);
             _data.Save();
             return RedirectToAction("Index");
         }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        _data.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+        protected override void Dispose(bool disposing)
+        {
+            _data.Dispose();
+            base.Dispose(disposing);
+        }
+
     }
 }

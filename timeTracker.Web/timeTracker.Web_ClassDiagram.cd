@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="timeTracker.Web.ApplicationUserManager">
+    <Position X="3" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\IdentityConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="timeTracker.Web.ApplicationSignInManager">
+    <Position X="0.75" Y="9.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\IdentityConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="timeTracker.Web.IoC">
+    <Position X="6.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DependencyResolution\IoC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="timeTracker.Web.MvcApplication">
+    <Position X="8.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Global.asax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="timeTracker.Web.App_Start.StructuremapMvc">
+    <Position X="6.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\StructuremapMvc.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="timeTracker.Web.Controllers.AccountController">
+    <Position X="0.5" Y="0.5" Width="2.75" />
+    <NestedTypes>
+      <Class Name="timeTracker.Web.Controllers.AccountController.ChallengeResult" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Controllers\AccountController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <AssociationLine Name="_userManager" Type="timeTracker.Web.ApplicationUserManager" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.688" Y="6.549" />
+        <Point X="2.688" Y="8.463" />
+        <Point X="3" Y="8.463" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_signInManager" Type="timeTracker.Web.ApplicationSignInManager" FixedFromPoint="true">
+      <Path>
+        <Point X="1.625" Y="6.549" />
+        <Point X="1.625" Y="9.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAABAChACAAAAAAAAFgEgAABAABMKIAAAMRAAQgAAA=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_userManager" />
+      <Field Name="_signInManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="timeTracker.Web.Controllers.CompanyController">
+    <Position X="15" Y="0.5" Width="2.25" />
+    <AssociationLine Name="_data" Type="timeTracker.Domain.ITimeTrackerDataSource" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15.344" Y="2.887" />
+        <Point X="15.344" Y="3.262" />
+        <Point X="13.5" Y="3.262" />
+        <Point X="13.5" Y="5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABCABAAAAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\CompanyController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_data" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="timeTracker.Web.Controllers.DashboardController">
+    <Position X="19" Y="6.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\DashboardController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="timeTracker.Web.Controllers.HomeController">
+    <Position X="13.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABCAAAAEACAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_data" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="timeTracker.Web.Controllers.LeaveChartController">
+    <Position X="19" Y="8.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEQAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\LeaveChartController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="timeTracker.Web.Controllers.ManageController">
+    <Position X="4" Y="0.5" Width="2.75" />
+    <NestedTypes>
+      <Enum Name="timeTracker.Web.Controllers.ManageController.ManageMessageId" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Controllers\ManageController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAABACAQiAAgAAAAEFhAAAAAAEAIMIAAEEEgAAkAAA=</HashCode>
+      <FileName>Controllers\ManageController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_signInManager" />
+      <Field Name="_userManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="timeTracker.Web.Controllers.ProjectController">
+    <Position X="15.75" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABCABAACAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\ProjectController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_data" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="timeTracker.Web.Controllers.TimeSheetController">
+    <Position X="16.25" Y="3" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAABCABAACAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\TimeSheetController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_data" />
+      <Field Name="context" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="timeTracker.Web.Controllers.TimeSheetEntryController">
+    <Position X="10.75" Y="8" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABCABAACAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\TimeSheetEntryController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_data" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="timeTracker.Web.Hubs.NotificationHub">
+    <Position X="19" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Hubs\NotificationHub.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="timeTracker.Web.Infrastructure.TimeTrackerDb" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIABAAAAAAAAEAEAAAAAQgAFAAAAAAAAAQAQA=</HashCode>
+      <FileName>Infrastructure\TimeTrackerDb.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="timeTracker.Web.Models.ApplicationUser">
+    <Position X="7.5" Y="0.5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAICAAAAAAAEAAAAAQAEAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\IdentityModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="timeTracker.Web.Models.LeaveChartModel">
+    <Position X="21.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAFAAAAAAAAAACAAAAAAAgA=</HashCode>
+      <FileName>Models\LeaveChartModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="timeTracker.Web.Models.BarChart">
+    <Position X="21.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\LeaveChartModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="timeTracker.Web.ViewModels.CreateCompanyViewModel">
+    <Position X="18" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAIgAAAAAAAAAAQAAAAAAAAAFAAAAAAAQAA=</HashCode>
+      <FileName>ViewModels\CreateCompanyViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="timeTracker.Web.ViewModels.CreateProjectViewModel">
+    <Position X="15.75" Y="9.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIgAAAAAgAAAAQAAAAAAAAAAAAABEAAAAA=</HashCode>
+      <FileName>ViewModels\CreateProjectViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="timeTracker.Web.ViewModels.CreateTimeSheetEntryViewModel">
+    <Position X="10.5" Y="10.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAiQAAIIAIQAAAACAAAAAAABgAQgAAAAAAAAABAAAA=</HashCode>
+      <FileName>ViewModels\CreateTimeSheetEntryViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="timeTracker.Web.ViewModels.CreateTimeSheetViewModel">
+    <Position X="19.25" Y="3.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACEAAIAAAAAAAAAAAAAAAAAgAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\CreateTimeSheetViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext&lt;TUser&gt;">
+    <Position X="7.25" Y="3.25" Width="5.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityUser">
+    <Position X="10" Y="0.75" Width="4.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext">
+    <Position X="21.5" Y="2" Width="3" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="timeTracker.Domain.ITimeTrackerDataSource">
+    <Position X="11.25" Y="5" Width="2.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -12,11 +12,13 @@ namespace timeTracker.Web
     {
         protected void Application_Start()
         {
+            
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             ViewEngines.Engines.Add(new RazorViewEngine());
+           
         }
     }
 }

@@ -30,6 +30,7 @@ namespace timeTracker.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                      "~/Content/yeti.bootstrap.min.css",
                      "~/Content/site.css"));
+           
         }
     }
 }

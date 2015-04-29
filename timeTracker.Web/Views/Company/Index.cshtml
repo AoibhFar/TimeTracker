@@ -1,8 +1,7 @@
-﻿
-@model PagedList.IPagedList<timeTracker.Domain.Company>
+﻿@model PagedList.IPagedList<timeTracker.Domain.Company>
 @using PagedList.Mvc;
 
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css"/>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @*@model IEnumerable<timeTracker.Domain.Company>*@
 
@@ -16,18 +15,19 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@using (Html.BeginForm("Index","Student", FormMethod.Get))
+@using (Html.BeginForm("Index", "Company", FormMethod.Get))
 {
     <p>
         Find by company name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" /></p>
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </p>
 }
 <table class="table">
     <tr>
         <th>
             @*@Html.DisplayNameFor(model => model.Name)*@
-            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter=ViewBag.CurrentFilter })
-        
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter })
+
         </th>
         <th>
             @*@Html.DisplayNameFor(model => model.Contactperson)*@
@@ -45,33 +45,34 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Contactperson)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Contactnumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Contactemail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contactperson)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contactnumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contactemail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
-<br/>
+<br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter}))
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
