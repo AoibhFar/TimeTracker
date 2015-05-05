@@ -34,7 +34,7 @@ namespace timeTracker.Web.Migrations
                 var role = new IdentityRole { Name = "User" };
                 roleManager.Create(role);
             }
-            if (!context.Users.Any(u => u.UserName == "Admin User"))
+            if (!context.Users.Any(u => u.UserName == "admin@mail.com"))
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(store);
@@ -51,23 +51,23 @@ namespace timeTracker.Web.Migrations
                 userManager.AddToRole(user.Id, "Admin");
             }
 
-            //if (!context.Users.Any(u => u.UserName == "Guest User"))
-            //{
-            //    var store = new UserStore<ApplicationUser>(context);
-            //    var userManager = new UserManager<ApplicationUser>(store);
-            //    var user = new ApplicationUser
-            //    {
+            if (!context.Users.Any(u => u.UserName == "guest@mail.com"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser
+                {
 
-            //        Name = "Guest User",
-            //        UserName = "Guest User",
-            //        Email = "guest@mail.com",
-            //        Department = "Guest",
+                    Name = "Guest User",
+                    UserName = "guest@mail.com",
+                    Email = "guest@mail.com",
+                    Department = "Guest",
 
-            //    };
+                };
 
-            //    userManager.Create(user, "Guest1!");
-            //    userManager.AddToRole(user.Id, "User");
-            //}
+                userManager.Create(user, "Guest1!");
+                userManager.AddToRole(user.Id, "User");
+            }
 
             context.Companies.AddOrUpdate(d => d.Name,
                 new Company() { Name = "HydroP", Contactperson = "Ann Reilly", Contactemail = "areilly@gmail.com", Contactnumber = "01 4578995", Description = "Renewable Energy Engineering" },

@@ -1,18 +1,15 @@
 ﻿@model PagedList.IPagedList<timeTracker.Domain.Company>
 @using PagedList.Mvc;
-
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-@*@model IEnumerable<timeTracker.Domain.Company>*@
-
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Company";
 }
 
-<h2>Index</h2>
+<h2>Companies</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add New Company", "Create")
 </p>
 
 @using (Html.BeginForm("Index", "Company", FormMethod.Get))
@@ -25,12 +22,9 @@
 <table class="table">
     <tr>
         <th>
-            @*@Html.DisplayNameFor(model => model.Name)*@
             @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter })
-
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.Contactperson)*@
             @Html.ActionLink("Contact", "Index", new { sortOrder = ViewBag.ContactNameSortParam, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
@@ -42,7 +36,6 @@
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().Description)
         </th>
-        <th></th>
     </tr>
 
     @foreach (var item in Model)

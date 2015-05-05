@@ -4,75 +4,147 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Company Details</h2>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title"> Company Details</h3>
+    </div>
+    <div class="panel-body">
 
-<div class=" jumbotron">
-    <div>
-        <hr />
-        <dl class="dl-horizontal">
+            <dl class="dl-horizontal">
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Contactperson)
-            </dt>
+                <dt>
+                  @Html.DisplayNameFor(model => model.Contactperson)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Contactperson)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Contactperson)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Contactnumber)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Contactnumber)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Contactnumber)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Contactnumber)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Contactemail)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Contactemail)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Contactemail)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Contactemail)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Projects)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Projects)
+                </dt>
 
             <dd>
                 @foreach (var project in Model.Projects)
-                {
-                    @*@project.Name*@
+                    {
+
 
                     @Html.ActionLink(project.Name, "details", "project", new { project.Id }, null)
                     <br />
-                }
-
+                    }
             </dd>
 
         </dl>
+
     </div>
-    <p>
-
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index") |
-        @Html.ActionLink("Add New Project", "Create", "Project", new { CompanyId = @Model.Id, CompanyName = Model.Name }, null) |
-        @Html.ActionLink("Edit Company", "Edit", "Company", new { id = Model.Id}, null)
-    </p>
-
 </div>
+<p>
+    @Html.ActionLink("Back to List", "Index") |
+    @Html.ActionLink("Edit Company Details", "Edit", "Company", new { id = Model.Id }, null) |
+    @Html.ActionLink("Add New Project", "Create", "Project", new { CompanyId = @Model.Id, CompanyName = Model.Name }, null) 
+   
+</p>
+
+@*<h2>Company Details</h2>
+
+    <div class=" jumbotron">
+        <div>
+            <hr />
+            <dl class="dl-horizontal">
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Contactperson)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Contactperson)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Contactnumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Contactnumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Contactemail)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Contactemail)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Projects)
+                </dt>
+
+                <dd>
+                    @foreach (var project in Model.Projects)
+                    {
+
+
+                        @Html.ActionLink(project.Name, "details", "project", new { project.Id }, null)
+                        <br />
+                    }
+
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+            @Html.ActionLink("Back to List", "Index") |
+            @Html.ActionLink("Add New Project", "Create", "Project", new { CompanyId = @Model.Id, CompanyName = Model.Name }, null) |
+            @Html.ActionLink("Edit Company", "Edit", "Company", new { id = Model.Id}, null)
+        </p>
+
+    </div>*@

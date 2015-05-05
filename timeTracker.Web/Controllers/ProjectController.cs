@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using timeTracker.Domain;
 using timeTracker.Web.ViewModels;
+using PagedList;
 
 namespace timeTracker.Web.Controllers
 {
@@ -19,10 +20,57 @@ namespace timeTracker.Web.Controllers
         }
 
         // GET: Company
-         public ActionResult Index()
+         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
          {
-             var allProjects = _data.Query<Project>().ToList();
-             return View(allProjects);
+             ViewBag.CurrentSort = sortOrder;
+             ViewBag.ProjectNameSortParam = String.IsNullOrEmpty(sortOrder) ? "project_desc" : "";
+             ViewBag.CompanyNameSortParam = String.IsNullOrEmpty(sortOrder) ? "company_desc" : "";
+             ViewBag.StartDateSort = String.IsNullOrEmpty(sortOrder) ? "start_desc" : "";
+             ViewBag.FinishDateSort = String.IsNullOrEmpty(sortOrder) ? "finish_desc" : "";
+
+             if (searchString != null)
+             {
+                 page = 1;
+             }
+             else
+             {
+                 searchString = currentFilter;
+             }
+
+             ViewBag.CurrentFilter = searchString;
+             var projects = _data.Query<Project>();
+
+             if (!String.IsNullOrEmpty(searchString))
+             {
+                 projects = _data.Query<Project>().Where(c => c.Name.Contains(searchString));
+             }
+
+             switch (sortOrder)
+             {
+                 case "project_desc":
+                     projects = projects.OrderByDescending(p => p.Name);
+                     break;
+
+                 case "company_desc":
+                     projects = projects.OrderByDescending(p => p.Company);
+                     break;
+                 case "start_desc":
+                     projects = projects.OrderByDescending(p => p.Startdate);
+                     break;
+                 case "finish_desc":
+                     projects = projects.OrderByDescending(p => p.Finishdate);
+                     break;
+
+                 default:
+                     projects = projects.OrderBy(p => p.Name);
+                     break;
+             }
+
+
+             int pageSize = 4;
+             int pageNumber = (page ?? 1);
+
+             return View(projects.ToPagedList(pageNumber, pageSize));
          }
 
         // GET: Project/Details/5

@@ -15,9 +15,11 @@ namespace timeTracker.Domain
         public virtual string Company { get; set; }
         public virtual int CompanyId { get; set; }
         public virtual string Description { get; set; }
+
         [DataType(DataType.Date)]
         [Display(Name = "Start Date")]
         public virtual DateTime? Startdate { get; set; }
+
         [DataType(DataType.Date)]
         [Display(Name = "Finish Date")]
         public virtual DateTime? Finishdate { get; set; }

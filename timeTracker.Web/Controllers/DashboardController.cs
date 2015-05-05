@@ -8,11 +8,18 @@ namespace timeTracker.Web.Controllers
 {
     public class DashboardController : Controller
     {
-        // GET: Dashboard
+        // GET: Index
         public ActionResult Index()
         {
             return View();
         }
+
+        // GET: AnnualLeave
+        public ActionResult AnnualLeave()
+        {
+            return View();
+        }
+
 
         public JsonResult GetJsonData()
         {

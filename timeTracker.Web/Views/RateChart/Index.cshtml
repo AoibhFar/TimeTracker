@@ -1,7 +1,7 @@
-﻿@model timeTracker.Web.Models.LeaveChartModel
+﻿@model timeTracker.Web.Models.RateChartModel
 
 @{
-    ViewBag.Title = "Leave Chart ";
+    ViewBag.Title = "Rate Chart ";
 }
 
 <!--Load Google Chart Ajax API-->
@@ -14,12 +14,13 @@
 
     function drawChart() {
 
-        $.post('/BarChart/GetBarJsonData', {}, function (data) {
+        $.post('/RateChart/GetJsonData', {}, function (data) {
 
             var tdata = new google.visualization.DataTable();
             tdata.addColumn('string', '@Model.RoleTitle');
             tdata.addColumn('number', '@Model.RateTitle');
-           
+  
+
             for (i = 0; i < data.length; i++) {
 
                 tdata.addRow([data[i].Role, data[i].Rate]);
@@ -28,10 +29,19 @@
 
             var options = {
                 width: 600,
-                height: 300,
+                height: 400,
                 is3D: true,
                 title: 'Employee Roles and Rates',
                 tooltip: { isHtml: true },
+                series: {
+                    0: { color: '#e2431e' },
+                    1: { color: '#e7711b' },
+                    2: { color: '#f1ca3a' },
+                    3: { color: '#6f9654' },
+                    4: { color: '#1c91c0' },
+                    5: { color: '#43459d' },
+                }
+                
             };
 
             var chart = new google.visualization.ColumnChart(document.getElementById('chartdiv'));

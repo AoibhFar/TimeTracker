@@ -12,9 +12,11 @@
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
+@media (min-width: 768px){
 .dl-horizontal dt {
     white-space: normal;
-    
+    text-align: left;
+    }   
 }
 
 /* Set width on the form input elements since they're 100% wide by default */

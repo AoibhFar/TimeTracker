@@ -15,7 +15,6 @@ namespace timeTracker.Web {
                                         scan.WithDefaultConventions();
                                     });
                            x.For<ITimeTrackerDataSource>().HttpContextScoped().Use<TimeTrackerDb>();
-                           // x.For<ITimeTrackerDataSource>().HttpContextScoped().Use<ApplicationDbContext>();
                         });
             return ObjectFactory.Container;
         }

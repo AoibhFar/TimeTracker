@@ -52,6 +52,11 @@ namespace timeTracker.Web.Controllers
             }
         }
 
+        public ActionResult Index()
+        {
+            return View("Index");
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]

@@ -13,7 +13,9 @@ namespace timeTracker.Web.Tests.Fakes
         {
             return Sets[typeof(T)] as IQueryable<T>;
         }
+
         public void Dispose() { }
+
       
         public void AddSet<T>(IQueryable<T> objects)
         {

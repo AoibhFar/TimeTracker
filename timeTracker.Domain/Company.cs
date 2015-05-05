@@ -11,12 +11,19 @@ namespace timeTracker.Domain
     {
        public virtual int Id { get; set; }
        public virtual string Name { get; set; }
+
+       [Display(Name ="Contact Person")]
        public virtual string Contactperson { get; set; }
+
        [Display(Name = "Contact Number")]
        public virtual string Contactnumber { get; set; }
+
        [Display(Name = "Contact Email")]
        public virtual string Contactemail { get; set; }
+
        public virtual string Description { get; set; }
+
+       // Collection to hold related projects
        public virtual ICollection<Project> Projects { get; set; }
     }
 }

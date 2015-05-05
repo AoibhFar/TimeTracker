@@ -12,6 +12,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using timeTracker.Web.Models;
 using timeTracker.Web.Infrastructure;
+using Twilio;
+using System.Configuration;
+using System.Diagnostics;
 
 namespace timeTracker.Web
 {
@@ -29,6 +32,15 @@ namespace timeTracker.Web
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your SMS service here to send a text message.
+            var Twilio = new TwilioRestClient(
+                ConfigurationManager.AppSettings["TwilioSid"],
+                ConfigurationManager.AppSettings["TwilioToken"] );
+
+            var result = Twilio.SendMessage(
+            ConfigurationManager.AppSettings["TwilioFromPhone"],
+             message.Destination, message.Body);
+
+            Trace.TraceInformation(result.Status);
             return Task.FromResult(0);
         }
     }

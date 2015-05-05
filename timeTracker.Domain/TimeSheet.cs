@@ -12,13 +12,18 @@ namespace timeTracker.Domain
     {
         public virtual int Id { get; set;}
         public virtual string OwnerId { get; set; }
+
         [Display(Name = "Employee")]
         public virtual string OwnerName { get; set; }
+
         [DataType(DataType.Date)]
         [Display(Name = "Week Starting")]
         public virtual DateTime? WeekStarting { get; set; }
+
         [Display(Name = "Hours")]
         public virtual float WeeklyHours { get; set; }
+
+       // Collection to hold daily timesheet entries
         [Display(Name ="Entries")]
         public virtual ICollection<TimeSheetEntry> TimeSheetEntries { get; set; } 
     }

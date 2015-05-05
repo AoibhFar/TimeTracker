@@ -12,7 +12,7 @@ namespace timeTracker.Web.Tests
 {
     class TestData
     {
-        public static IQueryable<Company> Comapnies
+        public static IQueryable<Company> Companies
         {
             get
             {
@@ -21,6 +21,7 @@ namespace timeTracker.Web.Tests
                 for (int i = 0; i < 100; i++)
                 {
                     var company = new Company();
+                    company.Id = i;
                     company.Projects = new List<Project>(){
                         new Project { Id = i}
                     };

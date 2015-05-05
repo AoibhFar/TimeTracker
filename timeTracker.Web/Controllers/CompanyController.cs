@@ -60,7 +60,7 @@ namespace timeTracker.Web.Controllers
                     break;
             }
 
-            int pageSize = 3;
+            int pageSize = 4;
             int pageNumber = (page ?? 1);
 
             return View(companies.ToPagedList(pageNumber,pageSize));
@@ -163,7 +163,7 @@ namespace timeTracker.Web.Controllers
         // POST: Company/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult DeleteConfirmed(int id)
         {
             var company = _data.Query<Company>().Single(t => t.Id == id);
             _data.Remove(company);

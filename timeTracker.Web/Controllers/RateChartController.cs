@@ -7,21 +7,21 @@ using timeTracker.Web.Models;
 
 namespace timeTracker.Web.Controllers
 {
-    public class LeaveChartController : Controller
+    public class RateChartController : Controller
     {
-        // GET: BarChart
+        // GET: Chart
         public ActionResult Index()
         {
           
-            LeaveChartModel BcModel = new LeaveChartModel();
-            BcModel.RateTitle = "Rate";
-            BcModel.RoleTitle = "Role";
-            return View(BcModel);
+            RateChartModel rateModel = new RateChartModel();
+            rateModel.RateTitle = "Rate";
+            rateModel.RoleTitle = "Role";
+            return View(rateModel);
         }
 
-        public BarChart GetLeaveChartData()
+        public RateChart GetLeaveChartData()
         {
-            BarChart chart = new BarChart();
+            RateChart chart = new RateChart();
             return chart;
         }
 
@@ -32,7 +32,7 @@ namespace timeTracker.Web.Controllers
             new {Role = "Junior Developer", Rate = 20},
             new {Role = "Senior Developer", Rate = 35},
             new {Role = "Junior Tester", Rate = 15},
-            new {Role = "Senior Developer", Rate = 25},
+            new {Role = "Senior Tester", Rate = 25},
             new {Role = "System Architect", Rate = 45},
             new {Role = "Consultant", Rate = 60} };
 

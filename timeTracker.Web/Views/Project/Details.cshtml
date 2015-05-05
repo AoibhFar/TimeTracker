@@ -4,7 +4,65 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Project Details</h2>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Project Details</h3>
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Company)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Company)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Startdate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Startdate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Finishdate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Finishdate)
+            </dd>
+
+        </dl>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index") |
+    @Html.ActionLink("Edit Project", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Delete Project", "Delete", new { id = Model.Id })
+
+    
+   
+</p>
+
+@*<h2>Project Details</h2>
 
 <div>
     <hr />
@@ -50,8 +108,5 @@
         </dd>
 
     </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+</div>*@
+
