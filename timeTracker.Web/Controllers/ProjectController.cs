@@ -77,6 +77,11 @@ namespace timeTracker.Web.Controllers
         public ActionResult Details(int id)
         {
             var model = _data.Query<Project>().Single(d => d.Id == id);
+            float expected = model.ExpectedHours;
+            float actual = model.ActualHours;
+            float percent = (actual / expected)*100;
+            ViewBag.percent = percent.ToString();
+            ViewBag.completion = "width: " + percent.ToString() + "%";
             return View(model);
         }
 
@@ -105,7 +110,8 @@ namespace timeTracker.Web.Controllers
                     CompanyId = company.Id,
                     Description = viewModel.Description,
                     Startdate = viewModel.Startdate,
-                    Finishdate = viewModel.Finishdate
+                    Finishdate = viewModel.Finishdate,
+                    ExpectedHours = viewModel.ExpectedHours
                 };
 
                 //Add it to the Company's list of projects

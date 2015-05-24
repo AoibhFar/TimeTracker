@@ -23,5 +23,8 @@ namespace timeTracker.Domain
         [DataType(DataType.Date)]
         [Display(Name = "Finish Date")]
         public virtual DateTime? Finishdate { get; set; }
+        [Display(Name = "Expected Man Hours")]
+        public virtual int ExpectedHours { get; set; }
+        public virtual int ActualHours { get; set;}
     }         
 }

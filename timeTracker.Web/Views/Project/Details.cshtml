@@ -49,8 +49,14 @@
             <dd>
                 @Html.DisplayFor(model => model.Finishdate)
             </dd>
-
         </dl>
+        <div class="col-md-4">
+            <h4> Project Completion </h4>
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" style="@ViewBag.completion">@ViewBag.percent %</div>
+            </div>
+        </div>
+            
     </div>
 </div>
 <p>
@@ -58,55 +64,8 @@
     @Html.ActionLink("Edit Project", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Delete Project", "Delete", new { id = Model.Id })
 
-    
-   
+
+
 </p>
 
-@*<h2>Project Details</h2>
-
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Company)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Company)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Startdate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Startdate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Finishdate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Finishdate)
-        </dd>
-
-    </dl>
-</div>*@
 

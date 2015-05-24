@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+        
+         <div class="text-center">
+             <br />
+             <br />
+             <br />
+             <br />
+             <h2 class="text-primary"><strong> @Html.ActionLink("Hello " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", id = "message" })</strong></h2>
+             <br />
+             <br />
+             <a class="btn btn-primary" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+        </div>
+    }
+}
+else
+{
+        <div class="text-center">
+            <br />
+            <br />
+            <br />
+            <br />
+            <h2 class="text-primary"><strong>Welcome to TimeTracker Please Login</strong></h2>
+            <br />
+            <br />
+            <input type="button" class="btn btn-primary" value="Log in" onclick="location.href='@Url.Action("Login", "Account", new { id = "loginLink" })'" />
+        </div>
+
+}

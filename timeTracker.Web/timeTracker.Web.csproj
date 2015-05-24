@@ -225,6 +225,7 @@
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\TimeSheetController.cs" />
     <Compile Include="Controllers\TimeSheetEntryController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\SmDependencyResolver.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
@@ -233,6 +234,14 @@
     </Compile>
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Infrastructure\TimeTrackerDb.cs" />
+    <Compile Include="Migrations\201505231151232_Holidays.cs" />
+    <Compile Include="Migrations\201505231151232_Holidays.Designer.cs">
+      <DependentUpon>201505231151232_Holidays.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505231547317_ExpectedHours and ActualHours.cs" />
+    <Compile Include="Migrations\201505231547317_ExpectedHours and ActualHours.Designer.cs">
+      <DependentUpon>201505231547317_ExpectedHours and ActualHours.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\RateChartModels.cs" />
@@ -244,6 +253,7 @@
     <Compile Include="ViewModels\CreateProjectViewModel.cs" />
     <Compile Include="ViewModels\CreateTimeSheetEntryViewModel.cs" />
     <Compile Include="ViewModels\CreateTimeSheetViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -356,6 +366,9 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\TimeSheet\Edit.cshtml" />
     <Content Include="Views\Dashboard\AnnualLeave.cshtml" />
+    <Content Include="Views\Shared\_HomePartial.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -374,6 +387,14 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201505231151232_Holidays.resx">
+      <DependentUpon>201505231151232_Holidays.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505231547317_ExpectedHours and ActualHours.resx">
+      <DependentUpon>201505231547317_ExpectedHours and ActualHours.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

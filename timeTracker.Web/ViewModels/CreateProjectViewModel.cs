@@ -29,5 +29,7 @@ namespace timeTracker.Web.ViewModels
         [DataType(DataType.Date)]
         [Display(Name = "Finish Date")]
         public DateTime? Finishdate { get; set; }
+        [Display(Name="Expected Man Hours")]
+        public int ExpectedHours { get; set; }
     }
 }

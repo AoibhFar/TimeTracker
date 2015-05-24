@@ -62,12 +62,14 @@
     <br />
     <br />
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - TimeTracker - Employee Scheduling Simplified by Aoibheann Farrell</p>
-        </footer>
+    <div class="container body-content" >
+        <div class="row">
+            @RenderBody()
+            <hr />
+            <footer class="col-md-12">
+                <p>&copy; @DateTime.Now.Year - TimeTracker - Employee Scheduling Simplified by Aoibheann Farrell</p>
+            </footer>
+        </div>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

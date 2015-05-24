@@ -70,14 +70,14 @@ namespace timeTracker.Web.Controllers
         public ActionResult Details(int id)
         {
            
-            var model = _data.Query<Company>().Single(d => d.Id == id);
+            var company = _data.Query<Company>().Single(d => d.Id == id);
             
-            if (model == null)
+            if (company == null)
             {
                 return HttpNotFound();
             } 
 
-            return View(model);
+            return View(company);
         }
 
 

@@ -20,6 +20,8 @@ namespace timeTracker.Web.Models
         public virtual string Role { get; set; }
         public virtual string Manager { get; set; }
         public virtual float  Hourlyrate { get; set; }
+        public virtual int Holidays { get; set; }
+        public virtual int HolidaysTaken { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

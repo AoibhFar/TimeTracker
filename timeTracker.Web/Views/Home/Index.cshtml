@@ -2,9 +2,15 @@
     ViewBag.Title = "Index";
 }
 <body>
-    <div >
-        <img src="~/Images/TIME-TRACKER 5x3.png" alt="Logo" />
+    <div class="row" >
+        <div class="col-md-6">
+            <img src="~/Images/TIME-TRACKER 5x3.png" alt="Logo" />
+        </div>
+        <div class="col-md-6">
+           @Html.Partial("_HomePartial")
+        </div>  
     </div>
+    
 </body>
 
 

@@ -71,6 +71,9 @@ namespace timeTracker.Web.Models
         public string Role { get; set;  }
         public string Manager { get; set; }
         public float Hourlyrate { get; set; }
+        public int Holidays { get; set; }
+        public int HolidaysTaken { get; set; }
+
 
         [Required]
         [EmailAddress]

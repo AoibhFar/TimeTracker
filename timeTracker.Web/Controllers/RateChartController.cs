@@ -19,7 +19,7 @@ namespace timeTracker.Web.Controllers
             return View(rateModel);
         }
 
-        public RateChart GetLeaveChartData()
+        public RateChart GetChartData()
         {
             RateChart chart = new RateChart();
             return chart;
@@ -36,7 +36,7 @@ namespace timeTracker.Web.Controllers
             new {Role = "System Architect", Rate = 45},
             new {Role = "Consultant", Rate = 60} };
 
-            return Json(data);
+            return Json(data,JsonRequestBehavior.AllowGet);
         }
     }
 }
