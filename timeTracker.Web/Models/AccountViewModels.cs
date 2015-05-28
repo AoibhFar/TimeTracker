@@ -65,10 +65,14 @@ namespace timeTracker.Web.Models
 
     public class RegisterViewModel
     {
+        [Required]
         public string Name { get; set;  }
         public DateTime BirthDate { get; set; }
+        [Required]
         public string Department { get; set;  }
+        [Required]
         public string Role { get; set;  }
+        [Required]
         public string Manager { get; set; }
         public float Hourlyrate { get; set; }
         public int Holidays { get; set; }

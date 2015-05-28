@@ -90,6 +90,21 @@ namespace timeTracker.Web.Controllers
             {
                 return HttpNotFound();
             }
+            var entries = (from e in _data.Query<TimeSheetEntry>()
+                           where e.TimeSheetId == id
+                           select e).ToList();
+            var total = 0;
+            foreach(TimeSheetEntry e in entries){
+
+                total = total + e.Hours;
+            }
+            ViewBag.TotalHours = total;
+
+            ViewBag.Entries = (from e in _data.Query<TimeSheetEntry>()
+                           where e.TimeSheetId == id
+                           select e).OrderBy(e => e.Workdate).ToList();
+           
+
             return View(timesheet);
         }
 
@@ -102,8 +117,6 @@ namespace timeTracker.Web.Controllers
                                select new SelectListItem { Text = u.UserName }).ToList();
             
             var model = new CreateTimeSheetViewModel();
-            //model.OwnerId = User.Identity.GetUserId();
-            //model.OwnerName = User.Identity.GetUserName();
             return View(model);
         }
 
@@ -120,7 +133,6 @@ namespace timeTracker.Web.Controllers
                             select u).Single();
                 var timesheet = new TimeSheet
                 {
-                    //OwnerId = viewModel.OwnerId,
                     OwnerId = user.Id,
                     OwnerName = viewModel.OwnerName,
                     WeeklyHours = viewModel.WeeklyHours,
@@ -157,12 +169,12 @@ namespace timeTracker.Web.Controllers
         // POST: TimeSheet/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,EmployeeId,WeekStarting,WeeklyHours")] TimeSheet timeSheet)
+        public ActionResult Edit(TimeSheet timeSheet)
         {
             if (ModelState.IsValid)
             {
                 _data.Update(timeSheet);
-                _data.Save();
+                _data.Save(); 
                 return RedirectToAction("Index");
             }
             return View(timeSheet);

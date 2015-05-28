@@ -49,7 +49,9 @@
                                     <li>@Html.ActionLink("Projects", "Index", "Project")</li>
                                     <li>@Html.ActionLink("Employees", "Index", "Account")</li>
                                     <li class="divider"></li>
-                                    <li>@Html.ActionLink("Charts", "Index", "Dashboard")</li>
+                                    <li class="dropdown-header">Charts</li>
+                                    <li>@Html.ActionLink("Annual Leave", "CreateChart","Holiday")</li>
+                                    <li>@Html.ActionLink("Employee Rates", "Index", "RateChart")</li>
                                 </ul>
                             </li>
                         }

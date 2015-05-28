@@ -26,6 +26,7 @@ namespace timeTracker.Web.ViewModels
         public string Notes { get; set; }
         public bool Billable { get; set; }
         public string Day { get; set; }
+        [Range(1, 8)]
         public int Hours { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "Date")]

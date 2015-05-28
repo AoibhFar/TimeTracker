@@ -23,6 +23,7 @@ namespace timeTracker.Web.ViewModels
         public string OwnerName { get; set; }
 
         [Display(Name = "Weekly Hours")]
+        [Range (1,40)]
         public float WeeklyHours { get; set; }
 
         [Display(Name = "Week Starting")]

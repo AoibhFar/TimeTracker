@@ -103,6 +103,7 @@ namespace timeTracker.Web.Controllers
                new SelectListItem { Text = "Thurs",Value = "Thurs"},
                new SelectListItem { Text = "Fri", Value = "Fri"},
            };
+
             var model = new CreateTimeSheetEntryViewModel();
             model.TimeSheetId = timesheetId;
             model.OwnerId = User.Identity.GetUserId();
@@ -118,8 +119,11 @@ namespace timeTracker.Web.Controllers
             {
 
                 var timesheet = _data.Query<TimeSheet>().Single(d => d.Id == viewModel.TimeSheetId);
+                
                 var company = _data.Query<Company>().Single(c => c.Name == viewModel.CompanyName);
                 var project = _data.Query<Project>().Single(p => p.Name == viewModel.ProjectName);
+     
+
                 var timesheetentry = new TimeSheetEntry
                 {
                    OwnerId = viewModel.OwnerId,
@@ -172,7 +176,7 @@ namespace timeTracker.Web.Controllers
             {
                 _data.Update(timesheetentry);
                 _data.Save();
-                return RedirectToAction("Index");
+                return RedirectToAction("details", "timesheet", new { id = timesheetentry.TimeSheetId });
             }
             return View(timesheetentry);
         }

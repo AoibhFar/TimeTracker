@@ -1,18 +1,50 @@
-﻿using System;
+﻿
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Net;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using timeTracker.Web.Models;
 using timeTracker.Web.Infrastructure;
 using timeTracker.Web.ViewModels;
 using PagedList;
-using timeTracker.Web.Models;
 
 namespace timeTracker.Web.Controllers
 {
+    [Authorize(Roles="Admin")]
     public class UserController : Controller
     {
-        TimeTrackerDb db = new TimeTrackerDb();
+        public UserManager<ApplicationUser> UserManager { get; private set; }
+        public RoleManager<IdentityRole> RoleManager { get; private set; }
+        public UserStore<ApplicationUser> UserStore { get; private set; }
+        public  TimeTrackerDb context { get; private set; }
+   
+
+        public UserController() 
+        {
+            context = new TimeTrackerDb();
+            UserStore = new UserStore<ApplicationUser>(context);
+            UserManager = new UserManager<ApplicationUser>(UserStore);
+            RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+        
+        }
+
+        public UserController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, UserStore<ApplicationUser> userStore)
+        {
+            UserStore = userStore;
+            UserManager = userManager;
+            RoleManager = roleManager;
+        }
+
+       
         // GET: Users
         public ActionResult Index(string sortOrder, string currentFilter,string searchString, int? page)
         {
@@ -33,7 +65,7 @@ namespace timeTracker.Web.Controllers
             }
             ViewBag.CurrentFilter = searchString;
 
-            var users = from user in db.Users
+            var users = from user in context.Users
                         select user;
 
             if (!String.IsNullOrEmpty(searchString))
@@ -67,28 +99,31 @@ namespace timeTracker.Web.Controllers
             int pageSize = 4;
             int pageNumber = (page ?? 1);
 
-            var allusers = users.Select(user => new UserViewModel { Username = user.Name, Role = user.Role, Department = user.Department, Email = user.Email, Id = user.Id }).ToList();
+            return View(users.ToPagedList(pageNumber, pageSize));
 
-            return View(allusers.ToPagedList(pageNumber, pageSize));
-
-            //var allusers = db.Users.ToList();
-            //var users = allusers.Select(user => new UserViewModel { Username = user.Name, Role = user.Role, Department = user.Department, Email = user.Email, Id = user.Id }).ToList();
-            //var model = new GroupedUserViewModel { Users = users };
-            //return View(model);
             
         }
 
-        // GET: User/Edit/5
-        [Authorize(Roles = "Admin")]
-        public ActionResult Edit(string username)
+        //GET: /User/Details/5
+        public async Task<ActionResult> Details(string id)
         {
-            if (username == null)
+            if (id == null)
             {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var user = await UserManager.FindByIdAsync(id);
+            return View(user);
+        }
+
+        //Get: /User/Edit/5
+        public async Task<ActionResult> Edit(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var user = db.Users.First(u => u.UserName == username);
-
+            var user = await UserManager.FindByIdAsync(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -96,17 +131,92 @@ namespace timeTracker.Web.Controllers
             return View(user);
         }
 
-        [HttpPost, ActionName("Edit")]
+        //POST: /User/Edit/5
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ApplicationUser user)
+        public async Task<ActionResult> Edit(ApplicationUser edituser)
+        {
+            var id = edituser.Id;
+            var user = await UserManager.FindByIdAsync(id);
+            if (ModelState.IsValid)
+            {
+                user.Id =edituser.Id;
+                user.Name = edituser.Name;
+                user.BirthDate = edituser.BirthDate;
+                user.Department = edituser.Department;
+                user.Role = edituser.Role;
+                user.Manager = edituser.Manager;
+                user.Hourlyrate = edituser.Hourlyrate;
+                user.Holidays = edituser.Holidays;
+                user.HolidaysTaken = edituser.HolidaysTaken;
+                user.Email = edituser.Email;
+                user.PhoneNumber = edituser.PhoneNumber;
+                user.UserName = edituser.UserName;
+                
+                // Update the users details
+                await UserManager.UpdateAsync(user);
+
+                return RedirectToAction("Index");
+            }
+
+            return View(user);
+
+        }
+
+
+        // GET: /Users/Delete/5
+        public ActionResult Delete(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var user = context.Users.First(u => u.Id == id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        //
+        // POST: /Users/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(string id)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                var user = await UserManager.FindByIdAsync(id);
+                var logins = user.Logins;
+                foreach (var login in logins)
+                {
+                    await UserManager.RemoveLoginAsync(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
+                   
+                }
+                var rolesForUser = await UserManager.GetRolesAsync(id);
+
+                if (rolesForUser.Count() > 0)
+                {
+                    foreach (var item in rolesForUser.ToList())
+                    {
+                        // item should be the name of the role
+                        var result = await UserManager.RemoveFromRoleAsync(user.Id, item);
+                    }
+                }
+
+                await UserManager.DeleteAsync(user);
                 return RedirectToAction("Index");
             }
-            return View(user);
+            else
+            {
+                return View();
+            }
         }
     }
 }

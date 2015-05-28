@@ -19,6 +19,8 @@
 
 <h2>TimeSheets</h2>
 
+<p> @Html.ActionLink("Add New Timesheet", "Create")</p>
+
     <table class="table">
         <tr>
             <th>
@@ -64,6 +66,7 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
     @Scripts.Render("~/Scripts/toastr.js")
     @Scripts.Render("~/Scripts/jquery.signalR-2.2.0.js")
     @Scripts.Render("/signalr/hubs")
+
     <script type="text/javascript">
         $(function () {
             var con = $.connection.notificationHub;

@@ -1,58 +1,72 @@
 ﻿@model timeTracker.Domain.TimeSheet
 
+
 @{
     ViewBag.Title = "Details";
 }
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        
-        <dt>
-            @Html.DisplayNameFor(model => model.OwnerName)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.OwnerName)
-        </dd>
+<dl class="dl-horizontal">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.WeekStarting)
-        </dt>
+    <dt>@Html.LabelFor(model => model.OwnerName)</dt>
+    <dd>@Html.DisplayFor(model => model.OwnerName)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.WeekStarting)
-        </dd>
+    <dt>@Html.LabelFor(model => model.WeekStarting)</dt>
+    <dd>@Html.DisplayFor(model => model.WeekStarting)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.WeeklyHours)
-        </dt>
+</dl>
 
-        <dd>
-            @Html.DisplayFor(model => model.WeeklyHours)
-        </dd>
+<p class="text-primary"><h3> Daily Timesheet Entries</h3></p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeSheetEntries)
-        </dt>
+<table class="table">
 
-        <dd>
-            @foreach (var timesheetentry in Model.TimeSheetEntries)
-            {
+    <tr>
+        <th>@Html.Label("Day")</th>
+        <th>@Html.Label("Date")</th>
+        <th>@Html.Label("Hours")</th>
+        <th>@Html.Label("Project")</th>
+        <th>@Html.Label("Company")</th>
+        <th>@Html.Label("Billable")</th>
+    </tr>
 
-                @Html.ActionLink(timesheetentry.Day, "details", "TimeSheetEntry", new { timesheetentry.Id }, null)
-                <br />
-            }
+    @foreach (var entry in Model.TimeSheetEntries)
+    {
 
-        </dd>
+        <tr>
+            <td>@Html.DisplayFor(model => entry.Day)</td>
+            <td>@Html.DisplayFor(model => entry.Workdate)</td>
+            <td>@Html.DisplayFor(model => entry.Hours)</td>
+            <td>@Html.DisplayFor(model => entry.ProjectName)</td>
+            <td>@Html.DisplayFor(model => entry.CompanyName)</td>
+            <td>@Html.DisplayFor(model => entry.Billable)</td>
+             @Html.HiddenFor(model => entry.Id)
+            <td>
+                @Html.ActionLink("Edit", "Edit","TimeSheetEntry", new { entry.Id},null) |
+                @Html.ActionLink("Details", "Details", "TimeSheetEntry", new { entry.Id }, null) |
+                @Html.ActionLink("Delete", "Delete", "TimeSheetEntry", new { entry.Id }, null)
+            </td>
+            
+        </tr>
+   
 
+    }
+</table>
 
+<table>
+    <tr>
+        <th><h6 class="text-primary">Total Hours =   </h6></th>
+        <th><h6 class ="text-primary">@ViewBag.TotalHours</h6></th>
+    </tr>
+</table>
 
-    </dl>
-</div>
+<br/>
+<br/>
+
 <p>
-    @Html.ActionLink("Back to List", "Index") |
+    @Html.ActionLink("Back", "Index") |
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Add New Entry", "Create", "TimeSheetEntry", new { TimeSheetId = @Model.Id }, null) |
-    @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+    @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
+    @Html.ActionLink("Add Entry", "Create", "TimeSheetEntry", new { TimeSheetId = @Model.Id }, null) 
+   
 </p>
+

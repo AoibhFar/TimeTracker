@@ -3,10 +3,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Employee Management</h2>
-<div class="jumbotron">
-    <ul>
-        <li>@Html.ActionLink("Add a new employee", "Register", "Account")</li>
-        <li>@Html.ActionLink("Edit employee details", "Edit", "Account")</li>
-    </ul>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Employee Management</h3>
+    </div>
 </div>
+<div class="panel-body">
+    @Html.ActionLink("Add a new employee", "Register", "Account")
+    @Html.ActionLink("Employee details", "Index", "User")
+</div>
+
+  

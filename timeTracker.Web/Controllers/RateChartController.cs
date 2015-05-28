@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using timeTracker.Web.Infrastructure;
 using timeTracker.Web.Models;
 
 namespace timeTracker.Web.Controllers
 {
     public class RateChartController : Controller
     {
-        // GET: Chart
+        private readonly TimeTrackerDb _data;
+
+        public RateChartController()
+      
+        {
+            _data = new TimeTrackerDb();
+        }
+       
         public ActionResult Index()
         {
           

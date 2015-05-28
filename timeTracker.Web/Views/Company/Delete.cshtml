@@ -10,55 +10,38 @@
 <div>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+        <dt> @Html.DisplayNameFor(model => model.Name)</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Contactperson)
-        </dt>
+        <dd> @Html.DisplayFor(model => model.Name)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Contactperson)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.Contactperson)</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Contactnumber)
-        </dt>
+        <dd> @Html.DisplayFor(model => model.Contactperson)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Contactnumber)
-        </dd>
+        <dt> @Html.DisplayNameFor(model => model.Contactnumber)</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Contactemail)
-        </dt>
+        <dd> @Html.DisplayFor(model => model.Contactnumber)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Contactemail)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.Contactemail)</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+        <dd>@Html.DisplayFor(model => model.Contactemail)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.Description)</dt>
+
+        <dd>@Html.DisplayFor(model => model.Description)</dd>
 
     </dl>
+
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions ">
-            @Html.ActionLink("Back to List", "Index") |
-            <input type="submit" value="Delete" class="btn btn-primary btn-xs" /> 
-            
-        </div>
+    <div class="form-actions">
+        <input type="submit" value="Delete" class="btn btn-danger btn-sm" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
     }
 </div>
+
+

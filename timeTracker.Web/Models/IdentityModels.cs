@@ -13,11 +13,15 @@ namespace timeTracker.Web.Models
     
     public class ApplicationUser : IdentityUser
     {
+        [Required]
         public virtual string Name { get; set; }
         [DataType(DataType.Date)]
         public DateTime? BirthDate { get; set; }
+        [Required]
         public virtual string Department { get; set; }
+        [Required]
         public virtual string Role { get; set; }
+        [Required]
         public virtual string Manager { get; set; }
         public virtual float  Hourlyrate { get; set; }
         public virtual int Holidays { get; set; }

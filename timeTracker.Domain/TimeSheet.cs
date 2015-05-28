@@ -21,6 +21,7 @@ namespace timeTracker.Domain
         public virtual DateTime? WeekStarting { get; set; }
 
         [Display(Name = "Hours")]
+        [Range(1,40)]
         public virtual float WeeklyHours { get; set; }
 
        // Collection to hold daily timesheet entries

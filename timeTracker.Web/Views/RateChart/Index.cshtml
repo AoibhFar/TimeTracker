@@ -4,11 +4,13 @@
     ViewBag.Title = "Rate Chart ";
 }
 
+<h3 class="text-primary">Employee Contract Rates</h3>
+
 <!--Load Google Chart Ajax API-->
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
 
-    google.load("visualization", "1", { packages: ["columnchart"] });
+    google.load("visualization", "1.1", { packages: ["bar"] });
     google.setOnLoadCallback(drawChart);
 
 
@@ -19,7 +21,7 @@
             var tdata = new google.visualization.DataTable();
             tdata.addColumn('string', '@Model.RoleTitle');
             tdata.addColumn('number', '@Model.RateTitle');
-  
+    
 
             for (i = 0; i < data.length; i++) {
 
@@ -28,31 +30,21 @@
             }
 
             var options = {
-                width: 600,
-                height: 400,
-                is3D: true,
-                title: 'Employee Roles and Rates',
                 tooltip: { isHtml: true },
-                series: {
-                    0: { color: '#e2431e' },
-                    1: { color: '#e7711b' },
-                    2: { color: '#f1ca3a' },
-                    3: { color: '#6f9654' },
-                    4: { color: '#1c91c0' },
-                    5: { color: '#43459d' },
-                }
-                
+                legend: {position: 'none'},
+                colors: ['#1d638c'],
+                bar: {groupWidth: "90%"}
             };
 
-            var chart = new google.visualization.ColumnChart(document.getElementById('chartdiv'));
-            chart.draw(tdata, options);
+            var chart = new google.charts.Bar(document.getElementById('chartdiv'));
+            chart.draw(tdata, google.charts.Bar.convertOptions(options));
 
             });
 
         }
 
     </script>
-<div id="chartdiv">
+<div id="chartdiv" style="width: 1000px; height: 500px;">
 </div>
 
 

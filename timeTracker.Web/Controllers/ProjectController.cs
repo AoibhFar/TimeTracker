@@ -19,7 +19,7 @@ namespace timeTracker.Web.Controllers
             _data = data;
         }
 
-        // GET: Company
+        // GET: Project
          public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
          {
              ViewBag.CurrentSort = sortOrder;

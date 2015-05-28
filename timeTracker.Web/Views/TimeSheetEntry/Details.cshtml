@@ -4,80 +4,50 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Employee Details</h3>
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
+            <dt>@Html.DisplayNameFor(model => model.OwnerName)</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.OwnerName)
-        </dt>
+            <dd>@Html.DisplayFor(model => model.OwnerName)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.OwnerName)
-        </dd>
+            <dt>@Html.DisplayNameFor(model => model.CompanyName)</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CompanyName)
-        </dt>
+            <dd>@Html.DisplayFor(model => model.CompanyName)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CompanyName)
-        </dd>
+            <dt>@Html.DisplayNameFor(model => model.ProjectName)</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProjectName)
-        </dt>
+            <dd>@Html.DisplayFor(model => model.ProjectName)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProjectName)
-        </dd>
+            <dt>@Html.DisplayNameFor(model => model.Notes)</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Notes)
-        </dt>
+            <dd>@Html.DisplayFor(model => model.Notes)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Notes)
-        </dd>
+            <dt>@Html.DisplayNameFor(model => model.Billable)</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Billable)
-        </dt>
+            <dd>@Html.DisplayFor(model => model.Billable)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Billable)
-        </dd>
+            <dt>@Html.DisplayNameFor(model => model.Day)</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Day)
-        </dt>
+            <dd>@Html.DisplayFor(model => model.Day)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Day)
-        </dd>
+            <dt>@Html.DisplayNameFor(model => model.Hours)</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Hours)
-        </dt>
+            <dd>@Html.DisplayFor(model => model.Hours)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Hours)
-        </dd>
+            <dt>@Html.DisplayNameFor(model => model.Workdate)</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Workdate)
-        </dt>
+            <dd>@Html.DisplayFor(model => model.Workdate)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Workdate)
-        </dd>
-
-    </dl>
+        </dl>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index") |
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) 
-</p>
+    <p>
+       @Html.ActionLink("Back to List", "Index") |
+       @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+       @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+    </p>

@@ -5,6 +5,7 @@ using System.Web;
 using PagedList;
 using timeTracker.Web.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Web.WebPages.Html;
 
 namespace timeTracker.Web.ViewModels
 {
@@ -15,6 +16,8 @@ namespace timeTracker.Web.ViewModels
         public string Department { get; set; }
         public string Email { get; set; }
         public string Id { get; set; }
+
+        public IEnumerable<SelectListItem> AllUsers { get; set; }
     }
 
     public class GroupedUserViewModel

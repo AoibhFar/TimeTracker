@@ -18,6 +18,8 @@ namespace timeTracker.Domain
         public virtual string Notes { get; set; }
         public virtual bool Billable { get; set; }
         public virtual string Day { get; set; }
+
+        [Range(1,8)]
         public virtual int Hours { get; set; }
 
         [Display(Name = "Employee")]

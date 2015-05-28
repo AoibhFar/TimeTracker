@@ -216,10 +216,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
+    <Compile Include="ChqHtmlHelperExtensions.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HolidayController.cs" />
     <Compile Include="Controllers\RateChartController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
-    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
@@ -242,8 +243,13 @@
     <Compile Include="Migrations\201505231547317_ExpectedHours and ActualHours.Designer.cs">
       <DependentUpon>201505231547317_ExpectedHours and ActualHours.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505261534239_Made RegistrationFields Required.cs" />
+    <Compile Include="Migrations\201505261534239_Made RegistrationFields Required.Designer.cs">
+      <DependentUpon>201505261534239_Made RegistrationFields Required.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AnnualLeaveChartModel.cs" />
     <Compile Include="Models\RateChartModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -315,10 +321,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -346,7 +349,6 @@
     <Content Include="Views\TimeSheet\Index.cshtml" />
     <Content Include="Views\TimeSheetEntry\Index.cshtml" />
     <Content Include="Views\RateChart\Index.cshtml" />
-    <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Company\Edit.cshtml" />
     <Content Include="Views\TimeSheet\Create.cshtml" />
     <Content Include="Views\TimeSheet\Details.cshtml" />
@@ -359,16 +361,20 @@
     <Content Include="Views\Company\Index.cshtml" />
     <Content Include="Views\Company\Delete.cshtml" />
     <Content Include="Views\Company\DeleteConfirmed.cshtml" />
-    <Content Include="Views\TimeSheet\Delete.cshtml" />
     <Content Include="Views\TimeSheet\DeleteConfirmed.cshtml" />
     <Content Include="Views\Project\Delete.cshtml" />
     <Content Include="Views\Project\DeleteConfirmed.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\TimeSheet\Edit.cshtml" />
-    <Content Include="Views\Dashboard\AnnualLeave.cshtml" />
     <Content Include="Views\Shared\_HomePartial.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\User\DeleteConfirmed.cshtml" />
+    <Content Include="Views\Holiday\CreateChart.cshtml" />
+    <Content Include="Views\Holiday\DisplayChart.cshtml" />
+    <Content Include="Views\TimeSheet\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -394,6 +400,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505231547317_ExpectedHours and ActualHours.resx">
       <DependentUpon>201505231547317_ExpectedHours and ActualHours.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505261534239_Made RegistrationFields Required.resx">
+      <DependentUpon>201505261534239_Made RegistrationFields Required.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
